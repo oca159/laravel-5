@@ -37,7 +37,7 @@ PHP 5.3 o superior
 * Librerías php : Mcrypt
 
 
-![](composer.png)
+![](images/composer.png)
 
 
 ****Composer**** es una herramienta para administración de dependencias en PHP. Te permite declarar las librerías de las cuáles tu proyecto depende o necesita y éste las instala en el proyecto por ti.
