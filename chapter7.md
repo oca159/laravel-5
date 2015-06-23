@@ -87,7 +87,3 @@ Aquí escribiremos los archivos de pruebas que serán ejecutadas posteriormente 
 El archivo .env no existe cuando instalamos laravel, en este archivo se configurará el modo en que se ejecuta nuestra aplicación, por defecto será el modo debug, además podemos configurar la conexión a la base de datos y la conexión con el servidor de correo electronico. El archivo .env lo creamos copiando el archivo **.env.example** y renombrando la copia como **.env**.
 
 Por motivos de seguridad de la base de datos el archivo .env nunca se sube cuando hacemos un push en nuestro repositorio. Es por eso que aparece escrito dentro del archivo **.gitignore** en la raíz de nuestro proyecto.
-=======
-
-![](app.png)
->>>>>>> 9691b265706719592a4af22b2a276b96764eb16b
