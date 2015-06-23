@@ -32,4 +32,5 @@ App es usado para ofrecer un hogar por defecto a todo el código personal de tu 
 El directorio app tiene a su vez otros subdirectorios importantes pero uno de los más utilizados es el directorio **Http** en el cuál ubicaremos nuestros `Controllers`, `Middlewares` y `Requests`en sus carpetas correspondientes, además dentro del subdirectorio **Http** encontremos también el archivo `routes.php` el cuál es el archivo en el que escribiremos las rutas de la aplicación.
 
 A nivel de la raíz del directorio app encontraremos el modelo `User.php`, los modelos comunmente se ubicarán a nivel de la raíz de la carpeta app aunque igual es posible estructurarlos de la forma que queramos en una carpeta llamada `Models`por ejemplo.
+
 ![](app.png)
