@@ -8,4 +8,5 @@
 * [Capítulo 5. Migraciones y Seeders](chapter5.md)
 * [Capítulo 6. Model factories (Poblar base de datos con faker)](chapter6.md)
 * [Capítulo 7. Estructura de un proyecto en Laravel](chapter7.md)
+* [Capítulo 8. Enrutamiento básico](chapter8.md)
 
