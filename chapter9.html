@@ -1014,4 +1014,106 @@ body .markdown-body
     page-break-after: avoid;
   }
 }
-</style><title>chapter9</title></head><body><article class="markdown-body"><h1 id="modelos"><a name="user-content-modelos" href="#modelos" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Modelos</h1></article></body></html>
+</style><title>chapter9</title></head><body><article class="markdown-body"><h1 id="modelos-y-uso-de-eloquent"><a name="user-content-modelos-y-uso-de-eloquent" href="#modelos-y-uso-de-eloquent" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Modelos y uso de  Eloquent</h1>
+<h3 id="eloquent"><a name="user-content-eloquent" href="#eloquent" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Eloquent</h3>
+<p>En Laravel podemos hacer uso de un <a href="https://es.wikipedia.org/wiki/Mapeo_objeto-relacional"><strong>ORM</strong></a> llamado Eloquent, un <a href="https://es.wikipedia.org/wiki/Mapeo_objeto-relacional"><strong>ORM</strong></a> es un <strong><em>Mapeo Objeto-Relacional</em></strong> por sus siglas en ingles (Object-Relational mapping), que es una forma de mapear los datos que se encuentran en la base de datos almacenados en un lenguaje de script SQL a objetos de PHP y viceversa, esto surge con la idea de tener un codigo portable con el que no tengamos la necesidad de usar lenguaje SQL dentro de nuetras clases de PHP.</p>
+<p>Eloquent hace uso de los <strong>Modelos</strong> para recibir o enviar la información a la base de datos, para esto analizaremos el modelo que viene por defecto en Laravel, este es el modelo <strong>User</strong> que se ubica en la carpeta <code>app/</code>, los modelos hacen uso de PSR-4 y namespaces, un modelo nos ayuda a definir que tabla, atributos se pueden llenar y que otros se deben mantener ocultos.</p>
+<p>Los modelos usan convenciones para que a Laravel se le facilite el trabajo y nos ahorre tanto lineas de codigo como tiempo para relacionar mas modelos, las cuales son:</p>
+<ul>
+<li>
+<p>El nombre de los modelos se escribe en singular, en contraste con las tablas de la BD que se escriben en plural.</p>
+</li>
+<li>
+<p>Usan notacion UpperCamelCase para sus nombres.</p>
+</li>
+</ul>
+<p>Estas convenciones nos ayudan a detectar automaticamente las tablas, por ejemplo: el modelo <strong>User</strong> se encuentra en <strong>singular</strong> y con notacion <strong>UpperCamelCase</strong> y para Laravel poder definir que tabla es la que esta ligada a este modelo le es suficiente con realizar la conversion a notacion <strong>underscore</strong> y <strong>plural</strong>, dando como resultado la tabla: <strong>users</strong>.</p>
+<p>Y esto aplica para cuando queremos crear nuestros modelos, si tenemos una tabla en la base de datos con la que queremos trabajar que se llama <strong>user_profiles</strong>, vemos que se encuentra con las convenciones para tablas de bases de datos (plural y underscore), entonces el modelo para esta tabla cambiando las convenciones seria: <strong>UserProfile</strong> (singular y UpperCamelCase).</p>
+<p>Retomando el ejemplo que vimos en el <a href="/home/rafa/Projects/libro-laravel/chapter5.md">Capítulo 5</a> sobre la migracion de pasteles, crearemos ahora un modelo para poder trabajar con esa tabla, el cual recibira el nombre de <strong>Pastel</strong> y el comando para poder crear nuestro modelos es:</p>
+<p><pre><code class="shell">php artisan make:model Pastel
+</code></pre><br />
+Con esto se generara el archivo en donde ya se encuentra el modelo <strong>User</strong> en la carpeta <code>app/</code> y dentro de el vamos a definir la tabla que se va a usar con esta linea:</p>
+<pre><code class="php">protected $table = 'pasteles';
+</code></pre>
+
+<h5 id="pero-no-se-suponia-que-laravel-identificaba-automaticamente-que-tabla-usar"><a name="user-content-pero-no-se-suponia-que-laravel-identificaba-automaticamente-que-tabla-usar" href="#pero-no-se-suponia-que-laravel-identificaba-automaticamente-que-tabla-usar" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>¿Pero no se suponia que Laravel identificaba automaticamente que tabla usar?</h5>
+<p>Si lo hace pero si cambiamos las convenciones del modelo <strong>Pastel</strong> el resultado seria <strong>pastels</strong> y nuestra tabla se llama <strong>pasteles</strong>, esto es un problema para nosotros por el hecho del uso del lenguaje español porque la conversion de singular a plural no es la misma que la forma en que se hace en ingles, debido a esto nos vemos forzados a definir el nombre de la tabla.</p>
+<p>Bien una vez creado nuestro modelo pasaremos a crear una ruta de tipo <strong>get</strong> en nuestro archivo <strong><em>routes.php</em></strong> que se vio en el <a href="/home/rafa/Projects/libro-laravel/chapter8.md">Capítulo 8</a> sobre enrutamiento básico, que quedaria de la siguiente forma:</p>
+<pre><code class="php">Route::get('pruebasPastel', function(){
+
+});
+</code></pre>
+
+<p>Dentro de esta ruta de prueba vamos a usar nuestro modelo, pero como estamos usando la especificacion PSR-4 debemos incluir el namespace del modelo, que seria igual a esto:</p>
+<pre><code class="php">use Curso\Pastel;
+</code></pre>
+
+<p>Con esto estamos diciendo que incluya la clase <strong>Pastel</strong> que es nuestro modelo, y con esto podemos ya hacer consultas a nuestra BD y mapear a objetos PHP. En la <a href="http://laravel.com/docs/5.0/eloquent">documentacion oficial</a> de Laravel podemos ver todas las opciones que nos permite <strong>Eloquent</strong>, unas de las instrucciones basicas de este son <strong><em>get()</em></strong> que nos regresa todos los registros de la BD y <strong><em>first()</em></strong> que nos regresa el primer registro de una seleccion.offset-s10</p>
+<p>A su vez podemos unir esto a mas filtros de seleccion SQL, como por ejemplo seleccionar el primer pastel de vainilla, la sintaxis de Eloquent seria la siguiente:</p>
+<pre><code class="php">$pastel = Pastel::where('sabor','vainilla')-&gt;first();
+</code></pre>
+
+<p>Esto nos va a dar el primer pastel sabor vainilla, pero si quisieramos todos los pasteles de vainilla cambiariamos el metodo <code>first()</code> por el metodo <code>get()</code> para obtener todos.</p>
+<p>Y si queremos ver el resultado de esto y que de verdad estamos haciendo lo correcto podemos usar la funcion <code>dd()</code> para mostrar en pantalla el valor de una variable, con esto entonces nuestra ruta le agregariamos lo siguiente:</p>
+<pre><code class="php">Route::get('pruebasPastel', function(){
+    $pasteles = Pastel::where('sabor','vainilla')-&gt;get();
+    dd($pasteles);
+});
+</code></pre>
+
+<p>Y en el navegador deberiamos ver algo como esto:</p>
+<p><img alt="" src="/home/rafa/Projects/libro-laravel/images/collection.png" /></p>
+<p>Esto es la función <code>dd($pasteles)</code> mostrando el contenido de la variable <code>$pasteles</code>. Ahora bien si tuvieramos la necesidad de realizar siempre un mismo filtro, Eloquent nos provee de una herramienta llamada <strong>scopes</strong> que lo que realizan son consultas en especifico encapsulandolas dentro de funciones en el modelo, por ejemplo si quisieramos que el modelo <strong>Pastel</strong> tuviera una funcion que me diera todos los pasteles de vainilla, otra de chocolate y otra función mas para cheesecake, entonces podria crear un scope para cada una.</p>
+<p>Con el ejemplo de la ruta pruebasPastel para el sabor vainilla:</p>
+<pre><code class="php">    public function scopeVainilla($query){
+        return $query-&gt;where('sabor','vainilla');
+    }
+</code></pre>
+
+<p>Los scopes en la función se debe iniciar el nombre de la función con la palabra <strong>scope</strong> y seguido en notacion camelCase el nombre con el cual se va a llamar el scope. Y su equivalente dentro de la ruta seria la siguiente:</p>
+<pre><code class="php">    Route::get('pruebasPastel', function(){
+        $pasteles = Pastel::vainilla()-&gt;get();
+        dd($pasteles);
+    });
+</code></pre>
+
+<p>También podemos crear scopes dinamicos de la siguiente forma:</p>
+<p><pre><code class="php">    public function scopeSabor($query, $sabor){
+        return $query-&gt;where('sabor',$sabor);
+    }
+</code></pre><br />
+Esto nos daria una función generica para obtener los pasteles de cierto sabor y su implementacion seria asi:</p>
+<pre><code class="php">    Route::get('pruebasPastel', function(){
+        $pasteles = Pastel::sabor('vainilla')-&gt;get();
+        dd($pasteles);
+    });
+</code></pre>
+
+<p>Además con Eloquent tambien podemos insertar, actualizar o eliminar registros, por ejemplo:</p>
+<p>Para insertar la sintaxis seria la siguiente:</p>
+<pre><code class="php">$pastel = new Pastel;
+
+$pastel-&gt;nombre = 'Pastel Richos Style';
+$pastel-&gt;sabor  = 'chessecake';
+
+$pastel-&gt;save();
+
+</code></pre>
+
+<p>Para actualizar seria la siguiente:</p>
+<pre><code class="php">$pastel = Pastel::find(51);
+
+$pastel-&gt;sabor = 'chocolate';
+
+$pastel-&gt;save();
+</code></pre>
+
+<p>Para eliminar seria la siguiente:</p>
+<pre><code class="php">$pastel = Pastel::find(51);
+
+$pastel-&gt;delete();
+</code></pre>
+
+<p>o bien podriamos destruir el registro directamente con el modelo si tenemos su ID:</p>
+<pre><code class="php">$pastel-&gt;destroy(51);
+</code></pre></article></body></html>
