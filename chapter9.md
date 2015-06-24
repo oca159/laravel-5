@@ -137,5 +137,5 @@ $pastel->delete();
 o bien podriamos destruir el registro directamente con el modelo si tenemos su ID:
 
 ```php
-$pastel->destroy(51);
+Pastel::destroy(51);
 ```
