@@ -44,7 +44,7 @@ Dentro de esta ruta de prueba vamos a usar nuestro modelo, pero como estamos usa
 use Curso\Pastel;
 ```
 
-Con esto estamos diciendo que incluya la clase **Pastel** que es nuestro modelo, y con esto podemos ya hacer consultas a nuestra BD y mapear a objetos PHP. En la [documentacion oficial](http://laravel.com/docs/5.0/eloquent) de Laravel podemos ver todas las opciones que nos permite **Eloquent**, unas de las instrucciones basicas de este son ***get()*** que nos regresa todos los registros de la BD y ***first()*** que nos regresa el primer registro de una seleccion.offset-s10
+Con esto estamos diciendo que incluya la clase **Pastel** que es nuestro modelo, y con esto podemos ya hacer consultas a nuestra BD y mapear a objetos PHP. En la [documentacion oficial](http://laravel.com/docs/5.0/eloquent) de Laravel podemos ver todas las opciones que nos permite **Eloquent**, unas de las instrucciones basicas de este son ***get()*** que nos regresa todos los registros de la BD y ***first()*** que nos regresa el primer registro de una seleccion.
 
 A su vez podemos unir esto a mas filtros de seleccion SQL, como por ejemplo seleccionar el primer pastel de vainilla, la sintaxis de Eloquent seria la siguiente:
 
