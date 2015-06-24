@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #Modelos y uso de  Eloquent
 
 ###Eloquent
@@ -139,3 +140,6 @@ o bien podriamos destruir el registro directamente con el modelo si tenemos su I
 ```php
 $pastel->destroy(51);
 ```
+=======
+#Modelos y uso de Eloquent
+>>>>>>> db514002a3d324a398f56c7406cdf4d7625b3cfa
