@@ -83,6 +83,61 @@ Podemos definir diferentes el formato del texto como: negrita, cursiva, subrayad
 
 | HTML  | Resultado |
 | ------------- | ------------- |
-| ![](images/formatos.png)  | ![](images/formatos2.png)  |
+| `<b>`  | Texto en negrita  |
+| `<i>`  | Texto en cursiva  |
+| `<u>`  | Texto subrayado  |
+| `<p>`  | Parrafo  |
+| `<code>`  | Escribir en formato código de programación  |
+| `<p>`  | Parrafo  |
+| `<em>`  | Texto con énfasis  |
+| `<br>`  | Salto de línea  |
+| `<!--Texto-->`  | Comentarios en lenguaje HTML  |
+| `<hr>`  | Línea horizontal para dividir secciones  |
+| `<font face="verdana" size="10" color="red">`  | Formatear texto  |
+
+# Formularios
+
+| HTML  | Resultado |
+| ------------- | ------------- |
+| `<form>`      | Define un Formulario HTML|
+| `<input>`     | ![](images/form.png) |
+| `<textarea>`  | Define un textarea para guardar una gran cantidad de texto. |
+| `<button>`    | Define un botón|
+| `<select>`    | Define una lista desplegable|
+| `<option>`    | Define una opción en una lista desplegable|
+| `<label>`     | Define una etiqueta para un input|
+
+# Tablas
+ Ejemplo de una tabla básica:
+
+``` html
+ <table>
+    <thead>
+       <tr>
+         <th>cabecera</th>
+         <th>cabecera</th>
+         <th>cabecera</th>
+       </tr>
+    </thead>
+    <tfoot>
+       <tr>
+         <td>celda</td>
+         <td>celda</td>
+         <td>celda</td>
+       </tr>
+    </tfoot>
+    <tbody>
+       <tr>
+         <td>celda</td>
+         <td>celda</td>
+         <td>celda</td>
+       </tr>
+    </tbody>
+ </table> 
+```
+
+Las tablas se escriben con la etiqueta  `<table>`, dentro de la tabla tendremos filas y columnas, la etiqueta `<tr>` define las filas y la etiqueta `<td>` define las columas.
+
+
 
 
