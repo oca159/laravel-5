@@ -15,7 +15,7 @@ Para lograrlo haremos lo siguiente:
 
 ```
 Route::get('saludo', function () {
-    return view('Bienvenido :)');
+    return "Bienvenido :)";
 });
 ```
 
