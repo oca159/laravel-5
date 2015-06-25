@@ -10,4 +10,5 @@
 * [Capítulo 7. Estructura de un proyecto en Laravel](chapter7.md)
 * [Capítulo 8. Enrutamiento básico](chapter8.md)
 * [Capítulo 9. Modelos y uso de Eloquent](chapter9.md)
-
+* [Capítulo 10. Vistas y Blade](chapter10.md)
+* [Capítulo 10. Controladores](chapter11.md)
