@@ -11,4 +11,6 @@
 * [Capítulo 8. Enrutamiento básico](chapter8.md)
 * [Capítulo 9. Modelos y uso de Eloquent](chapter9.md)
 * [Capítulo 10. Vistas y Blade](chapter10.md)
-* [Capítulo 10. Controladores](chapter11.md)
+* [Capítulo 11. Controladores](chapter11.md)
+* [Anexo A. HTML5](HTML.md)
+* [Anexo B. CSS](CSS.md) 
