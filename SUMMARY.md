@@ -10,4 +10,6 @@
 * [Capítulo 7. Estructura de un proyecto en Laravel](chapter7.md)
 * [Capítulo 8. Enrutamiento básico](chapter8.md)
 * [Capítulo 9. Modelos y uso de Eloquent](chapter9.md)
+* [Anexo A. HTML5](HTML.md)
+* [Anexo B. CSS](CSS.md) 
 
