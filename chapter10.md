@@ -80,7 +80,7 @@ Esto es el equivalente a ```<?= $pastel ?>``` y aunque con un ejemplo tan sencil
 
 Usualmente las estructuras de control que conocemos las usamos en los archivos PHP dedicados al Back-end (lado del servidor), pero blade nos da una sintaxis muy comoda para este tipo de estructuras que con PHP plano son muy sucias e incomodas de usar.
 
-Para cada una de estas estructuras como lo son **If**, **else**, **elseif**, **for**, **foreach**, etc., se antepone un **@** para usar estas estructuras y listo!! eso en suficiente, pero a diferencia de como estamos a costumbrados de encapsular un grupo de sentencias o lineas de codigo con llabes **{ }**, en blade definimos el fin de una estructura con un **@end** seguido del nombre de la estructura que usamos, por ejemplo:
+Para cada una de estas estructuras como lo son **If**, **else**, **elseif**, **for**, **foreach**, etc., se antepone un **@** para usar estas estructuras y listo!! eso en suficiente, pero a diferencia de como estamos a costumbrados de encapsular un grupo de sentencias o lineas de codigo con llaves **{ }**, en blade definimos el fin de una estructura con un **@end** seguido del nombre de la estructura que usamos, por ejemplo:
 
 ```
 <h1>Lista de pasteles</h1>
@@ -177,9 +177,11 @@ Ahi vamos a crear un archivo llamado **lista.blade.php** y dentro de este archiv
     @if( $pasteles->count() > 10 )
         <h2>Hay muchos Pasteles</h2><br>
     @endif
-    @foreach($pasteles as $pastel)
-        <h4>{{ $pastel->nombre }}</h4>
-    @endforeach
+    <ul>
+        @foreach($pasteles as $pastel)
+            <li>{{ $pastel->nombre }}</li>
+        @endforeach
+    </ul>
 ```
 
 Y nuestra vista **saludo.blade.php** quedaria de esta forma una vez que ya incluyamos nuestro partial:
@@ -193,5 +195,25 @@ Y nuestra vista **saludo.blade.php** quedaria de esta forma una vez que ya inclu
 ```
 
 Si todo lo hacemos bien nuestra vista en el navegador debe seguir viendo de la misma manera, pero si se dan cuenta ahora se encuentra mucho mas modular nuestro HTML, si la lista de Pasteles la necesitaramos en otra vista ahora solo necesitamos hacer un ```@include('pasteles.partials.lista')``` y con eso ya tendremos nuestra lista agregada en cualquier vista donde la necesitemos.
+
+##Resumen, Anotaciones e informacion adicional
+
+**Blade** es un motor de plantillas potente que nos permite modularizar y estilizar a un gran nivel nuestro HTML.
+
+Como recordatorio listaremos algunas de las sentencias de **Blade** junto con su funcion:
+
+* **@extends('nombre_template')**: Esta sentencia nos ayuda a decirle a una vista cual va a ser el template que se va a usar.
+
+* **@yield('nombre')**: Esta sentencia nos permite declarar un futuro **section** de nuestro HTML que se definira en las vistas que son heredadas y no puede agregarse algun tipo de contenido por defecto, usualmente este sol ose usa en archivos que toman el rol de **Template** .
+
+* **@section('nombre')**: Esta sentencia tiene dos usos dependiendo que queremos declarar, el primero es que nos permite declarar como su nombre lo dice una seccion dentro del template que puede tener un contenido por defecto que si no es redefinido en la vista que herede el template entonces aparecera; el segundo nos permite asignar el contenido en una seccion que fue declarada en nuestro **template**, es decir esta palabra **section** se usa tanto en el template como en las vistas hijas, una diferencia mas es que si se usa en el **template** entonces la seccion temina con un **@show**, pero si se usa en una vista hija entonces termina la seccion con un **@stop**.
+
+* **@show**: Esta sentencia se usa para decir donde termina el **section** definido en el **template**.
+
+* **@parent**: Esta sentencia nos ayuda a cargar el contenido por defecto de un **section** del template, esto podemos usarlo cuando queremos agregar mas contenido dentro pero sin alterar el contenido por defecto, es decir agregarle mas HTML, esta sentencia se usa dentro de un **section**, podemos hacer un simil con el **super()** de Java que sirve para llamar al contructor de la superclase de la que se hereda.
+
+* **@stop**: Esta sentencia nos permite decir donde termina un **section**.
+
+* **include('ruta.nombre')**: Esta sentencia nos agrega en el lugar donde sea usada un archivo blade.php que contiene un **partial** o fragmento parcial de HTML, si ese partial se encuentra en la raiz de las vistas no necesita mas que el nombre sin la extension **blade.php**, pero si esta dentro de, por ejemplo, un archivo dentro de la carpeta **"views/admin/users/"** llamado **table.blade.php** para poder ser incluido se usaria la ruta junto con el nombre quedando como ```@include('admin.users.table')```, views no se contempla pues es la raiz de las vistas.
 
 Para mas informacion de **Blade** podemos ir a la [documentacion oficial de Laravel sobre templates](http://laravel.com/docs/5.0/templates).
