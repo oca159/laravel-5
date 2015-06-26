@@ -204,16 +204,16 @@ Como recordatorio listaremos algunas de las sentencias de **Blade** junto con su
 
 * **@extends('nombre_template')**: Esta sentencia nos ayuda a decirle a una vista cual va a ser el template que se va a usar.
 
-* **@yield('nombre')**: Esta sentencia nos permite declarar un futuro **section** de nuestro HTML que se definira en las vistas que son heredadas y no puede agregarse algun tipo de contenido por defecto, usualmente este sol ose usa en archivos que toman el rol de **Template** .
+* **@yield('nombre')**: Esta sentencia nos permite declarar un futuro **section** de nuestro HTML que se definira en las vistas que son heredadas y no puede agregarse algun tipo de contenido por defecto, usualmente este solo se usa en archivos que toman el rol de **Template** .
 
-* **@section('nombre')**: Esta sentencia tiene dos usos dependiendo que queremos declarar, el primero es que nos permite declarar como su nombre lo dice una seccion dentro del template que puede tener un contenido por defecto que si no es redefinido en la vista que herede el template entonces aparecera; el segundo nos permite asignar el contenido en una seccion que fue declarada en nuestro **template**, es decir esta palabra **section** se usa tanto en el template como en las vistas hijas, una diferencia mas es que si se usa en el **template** entonces la seccion temina con un **@show**, pero si se usa en una vista hija entonces termina la seccion con un **@stop**.
+* **@section('nombre')**: Esta sentencia tiene dos usos dependiendo de que queremos declarar, el primero es que nos permite declarar como su nombre lo dice una seccion dentro del template que puede tener un contenido por defecto que si no es redefinido en la vista que herede el template entonces aparecera; el segundo nos permite asignar el contenido en una seccion que fue declarada en nuestro **template**, es decir esta palabra **section** se usa tanto en el template como en las vistas hijas, una diferencia mas es que si se usa en el **template** entonces la seccion temina con un **@show**, pero si se usa en una vista hija entonces termina la seccion con un **@stop**.
 
 * **@show**: Esta sentencia se usa para decir donde termina el **section** definido en el **template**.
 
 * **@parent**: Esta sentencia nos ayuda a cargar el contenido por defecto de un **section** del template, esto podemos usarlo cuando queremos agregar mas contenido dentro pero sin alterar el contenido por defecto, es decir agregarle mas HTML, esta sentencia se usa dentro de un **section**, podemos hacer un simil con el **super()** de Java que sirve para llamar al contructor de la superclase de la que se hereda.
 
-* **@stop**: Esta sentencia nos permite decir donde termina un **section**.
+* **@stop**: Esta sentencia nos permite decir donde termina un **section** cuando se usa el section dentro de las vistas hijas.
 
-* **include('ruta.nombre')**: Esta sentencia nos agrega en el lugar donde sea usada un archivo blade.php que contiene un **partial** o fragmento parcial de HTML, si ese partial se encuentra en la raiz de las vistas no necesita mas que el nombre sin la extension **blade.php**, pero si esta dentro de, por ejemplo, un archivo dentro de la carpeta **"views/admin/users/"** llamado **table.blade.php** para poder ser incluido se usaria la ruta junto con el nombre quedando como ```@include('admin.users.table')```, views no se contempla pues es la raiz de las vistas.
+* **@include('ruta.nombre')**: Esta sentencia nos agrega en el lugar donde sea usada un archivo blade.php que contiene un **partial** o fragmento parcial de HTML, si ese partial se encuentra en la raiz de las vistas no necesita mas que el nombre sin la extension **blade.php**, pero si esta dentro de, por ejemplo, un archivo dentro de la carpeta **"views/admin/users/"** llamado **table.blade.php** para poder ser incluido se usaria la ruta junto con el nombre quedando como ```@include('admin.users.table')```, views no se contempla pues es la raiz de las vistas.
 
 Para mas informacion de **Blade** podemos ir a la [documentacion oficial de Laravel sobre templates](http://laravel.com/docs/5.0/templates).
