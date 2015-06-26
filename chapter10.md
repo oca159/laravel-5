@@ -11,7 +11,7 @@ Esto hace que las vistas de cada parte del proyecto, que suelen ser llamadas por
 
 Antes de ver mas sobre el motor de plantillas **Blade**, veremos como trabajar con las Vistas y llamarlas desde una ruta, crearemos un vista simple con un archivo nuevo en la carpeta ```resources/views/``` llamado **saludo.blade.php** con el siguiente codigo:
 
-```html
+```
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +27,7 @@ Antes de ver mas sobre el motor de plantillas **Blade**, veremos como trabajar c
 
 Es un HTML simple con un titulo 1, ahora vamos a crear una ruta que nos muestre esta vista:
 
-```php
+```
 Route::get('saludo', function(){
 	return view('saludo');
 });
@@ -39,7 +39,7 @@ De esta forma con la función view() le estamos diciendo a Larael que busque den
 
 Continuando con el ejemplo de los Pasteles vamos a mandar a la vista el nombre de un pastel, dentro de la ruta saludo vamos a obtener el primer Pastel de chocolate de nuestra BD y a poner ese nombre en vez del mensaje. Para esto podemos usar el scope de sabor para obtener los pasteles de chocolate y despues decirle que con el metodo first() nos regrese el primer pastel y eso guardaro en una variable, dejando la ruta de la siguiente forma:
 
-```php
+```
 	Route::get('saludo', function(){
 		$pastel = Pastel::sabor('chocolate')->first();
 		return view('saludo')->with('pastel', $pastel->nombre);
@@ -48,7 +48,7 @@ Continuando con el ejemplo de los Pasteles vamos a mandar a la vista el nombre d
 
 De esta forma estamos diciendo a la ruta que nos regrese la vista **saludo.blade.php** con una variable llamada pastel, que es el nombre del pastel, pero esto por si solo no lo va a mostrar el navegador, solo va a mandar la variable, para que el navegador la muestre debemos agregar un titulo donde este esa variable de esta forma:
 
-```html
+```
 <h2>{{ $pastel }}</h2>
 ```
 
@@ -62,7 +62,7 @@ Ahora si bien usamos los caracteres **{{ }}** y no sabemos bien que son, esto es
 
 **Blade** nos provee de muchas ventajas *(asi como casi todo en Laravel)*, ademas de modularizar nuestras vistas de una forma sorprendente, tambien nos permite usar estructuras de control y variables de PHP ¡directamente en ellas!, esto ya era posible antes usando las etiquetas de php, por ejemplo:
 
-```php
+```
 <?php echo $var ?>
 
 <?= $var ?>
@@ -72,7 +72,7 @@ Pero esto ademas de ser un poco incomodo de escribir deja nuestras vistas mucho 
 
 Entonces para el ejemplo anterior usamos el siguiente codigo:
 
-```php
+```
 {{ $pastel }}
 ```
 
@@ -140,7 +140,7 @@ Definiremos nuestra vista recien creada **saludo.blade.php** para que use un tem
 
 El template **app** por defecto tiene definida un **yield** llamado **content** que significa contenido, por lo cual la lista de pasteles que tenemos la vamos a agregar en esta parte y la vista quedaria de la siguiente forma:
 
-```html
+```
 @extends('app')
 
 @section('content')
@@ -172,7 +172,7 @@ Dentro la actual vista **saludo.blade.php**, vamos a quitar todo el HTML Blade q
 
 Ahi vamos a crear un archivo llamado **lista.blade.php** y dentro de este archivo vamos a cortar el codigo de nuestra vista saludo, quedando asi:
 
-```html
+```
 	<h1>Lista de pasteles</h1><br>
     @if( $pasteles->count() > 10 )
         <h2>Hay muchos Pasteles</h2><br>
@@ -184,7 +184,7 @@ Ahi vamos a crear un archivo llamado **lista.blade.php** y dentro de este archiv
 
 Y nuestra vista **saludo.blade.php** quedaria de esta forma una vez que ya incluyamos nuestro partial:
 
-```html
+```
 @extends('app')
 
 @section('content')

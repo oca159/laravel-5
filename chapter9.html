@@ -1048,7 +1048,7 @@ Con esto se generara el archivo en donde ya se encuentra el modelo <strong>User<
 <pre><code class="php">use Curso\Pastel;
 </code></pre>
 
-<p>Con esto estamos diciendo que incluya la clase <strong>Pastel</strong> que es nuestro modelo, y con esto podemos ya hacer consultas a nuestra BD y mapear a objetos PHP. En la <a href="http://laravel.com/docs/5.0/eloquent">documentacion oficial</a> de Laravel podemos ver todas las opciones que nos permite <strong>Eloquent</strong>, unas de las instrucciones basicas de este son <strong><em>get()</em></strong> que nos regresa todos los registros de la BD y <strong><em>first()</em></strong> que nos regresa el primer registro de una seleccion.offset-s10</p>
+<p>Con esto estamos diciendo que incluya la clase <strong>Pastel</strong> que es nuestro modelo, y con esto podemos ya hacer consultas a nuestra BD y mapear a objetos PHP. En la <a href="http://laravel.com/docs/5.0/eloquent">documentacion oficial</a> de Laravel podemos ver todas las opciones que nos permite <strong>Eloquent</strong>, unas de las instrucciones basicas de este son <strong><em>get()</em></strong> que nos regresa todos los registros de la BD y <strong><em>first()</em></strong> que nos regresa el primer registro de una seleccion.</p>
 <p>A su vez podemos unir esto a mas filtros de seleccion SQL, como por ejemplo seleccionar el primer pastel de vainilla, la sintaxis de Eloquent seria la siguiente:</p>
 <pre><code class="php">$pastel = Pastel::where('sabor','vainilla')-&gt;first();
 </code></pre>
