@@ -138,6 +138,57 @@ Podemos definir diferentes el formato del texto como: negrita, cursiva, subrayad
 
 Las tablas se escriben con la etiqueta  `<table>`, dentro de la tabla tendremos filas y columnas, la etiqueta `<tr>` define las filas y la etiqueta `<td>` define las columas.
 
+# Hipervínculos e imágenes
+Las imágenes pueden ser de formato png, jpg o gif y se escriben con la etiqueta `<img>` entre sus principales atributos tenemos:
 
+* src : La URI a la imágen.
+* alt: Texto que se desplegará en caso de que la imagen no sea desplegada.
+* width : Ancho de la imagen, puede ser escrita en pixeles o en porcentaje.
+* height: Alto de la imagen, puede ser escrita en pixeles o en porcentaje.
 
+Ejemplo:
 
+```html
+ <img src="html5.gif" alt="HTML5 Icon" width="128" height="128"> 
+```
+
+Los Hipervínculos o links son definidos con la etiqueta `<a>` que cuenta con los siguientes atributos:
+
+* href : especifica la URI de destino.
+* target : especifica en dónde se abrirá el nuevo documento del link.
+  * _blank : Abre el nuevo documento en una nueva ventana o pestaña.
+  * _self :Abre el nuevo documento en el mismo frame (acción por defecto).
+  * _parent : Abre el nuevo documento en el frame padre.
+  * _top : Abre el nuevo documento en todo el cuerpo de la ventana.
+
+Ejemplo de un link:
+
+```html
+<a href="https://www.facebook.com/oca159">Facebook</a>
+``` 
+
+Dentro de las etiquetas `<a>` puede ir un texto o una imagen.
+
+```html
+<a href="default.asp">
+  <img src="smiley.gif" alt="HTML tutorial">
+</a> 
+```
+
+Los hipervínculos también pueden redireccionar a un segmento específico de la página web. 
+
+Ejemplo: 
+Primero creamos una sección con un atributo id.
+
+```html
+<div id="Encabezado">Sección de encabezado</div>
+```
+
+Entonces agregamos un link que nos envíe a esa sección de la página.
+Para lograr este objetivo, agregamos en el atributo `href` el id de la sección precedido de un signo **#**.
+```html
+<a href="#Encabezado">Visitar la sección de encabezado</a>
+```
+
+# Aprender más sobre HTML5
+Para profundizar un poco más en HTML5 es recomendable el tutorial de [w3schools](http://www.w3schools.com/html/default.asp).

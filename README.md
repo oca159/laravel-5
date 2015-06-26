@@ -74,3 +74,6 @@ composer install
 ```
 
 Con esto le indicamos a composer que debe descargar nuestras dependencias y las dependencias de estas dependencias para satisfacer las necesidades de nuestro proyecto. Para más información sobre composer, sus campos y su forma de uso podemos consultar su página oficial https://getcomposer.org/doc/ la cuál se encuentra en inglés.
+
+# Aprender más sobre HTML5
+Para profundizar un poco más en HTML5 es recomendable el tutorial de [w3schools](http://www.w3schools.com/html/default.asp).
