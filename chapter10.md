@@ -56,7 +56,7 @@ Esta linea va justo abajo del mensaje **Hola mundo desde Laravel**, y ahora si d
 
 ![](images/vista_pastel.png)
 
-Ahora si bien usamos los caracteres **{{ }}** y no sabemos bien que son, esto es parte de la sintaxis que ahora veremos con **Blade**.
+Ahora si bien usamos los caracteres de las dobles llaves y no sabemos bien que son, esto es parte de la sintaxis que ahora veremos con **Blade**.
 
 #Blade
 
