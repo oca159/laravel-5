@@ -189,3 +189,6 @@ Para lograr este objetivo, agregamos en el atributo `href` el id de la sección 
 ```html
 <a href="#Encabezado">Visitar la sección de encabezado</a>
 ```
+
+# Aprender más sobre HTML5
+Para profundizar un poco más en HTML5 es recomendable el tutorial de [w3schools](http://www.w3schools.com/html/default.asp).
