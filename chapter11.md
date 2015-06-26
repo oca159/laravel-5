@@ -47,7 +47,7 @@ Con esto vamos a poder trabajar para cada metodo del controlador una ruta y las 
 Con todos los metodos podemos examinar por linea de comandos todas las rutas que nuestro proyecto tiene registradas:
 
 ```
-php artisan route:listing
+php artisan route:list
 ```
 
 Este comando nos va a mostrar en la consola un resultado similar a esto:
