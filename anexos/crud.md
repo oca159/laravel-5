@@ -6,7 +6,7 @@ Se explicara el proceso para dar altas, bajas, cambios y consultas de la tabla *
 
 Primero retomaremos las [migraciones y los seeders](capitulos/chapter5.md), creando la migracion y un pequeño seeder para poblar nuestra BD.
 
-Para crear la migracion con la plantilla basica usaremos el comando 
+Para crear la migracion con la plantilla basica usaremos el comando
 
 ```
 	php artisan make:migration crear_tabla_pasteles --create=pasteles
@@ -75,7 +75,7 @@ class PastelesSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        for ($i=0; $i < 50; $i++) { 
+        for ($i=0; $i < 50; $i++) {
             \DB::table('pasteles')->insert(array(
                    'nombre' => 'Pastel ' . $faker->firstNameFemale . ' ' . $faker->lastName,
                    'sabor'  => $faker->randomElement(['chocolate','vainilla','cheesecake']),
@@ -93,7 +93,7 @@ Con esto ya tendremos la estructura de la tabla y un seeder para poblar, con est
 	php artisan migrate --seed
 ```
 
-Ahora vamos a pasar a crear el [Modelo](capitulos/chapter9.md), el cual nos va a servir para mapear la tabla de la BD a una clase de Laravel como lo vimos en el [capitulo 9](capitulos/chapter9.modo). Vamos a usar el comando:
+Ahora vamos a pasar a crear el [Modelo](capitulos/chapter9.md), el cual nos va a servir para mapear la tabla de la BD a una clase de Laravel como lo vimos en el [capitulo 9](capitulos/chapter9.md). Vamos a usar el comando:
 
 ```
 	php artisan make:model Pastel
@@ -150,7 +150,7 @@ Cuando entramos a una pagina principal de administracion se pueden ver en ocasio
     }
 ```
 
-Eloquent nos facilita mucho las consultas a la BD y hace que sea portable nuestro codigo, en el metodo decimos que seleccione todos los pasteles y os envie a una vista llama **index** ubicada en la carpeta ```resoures/views/pasteles/```, como vimmos en el [capitulo 10](capitulos/chapter10.md) las rutas en blade cambian la **/**(diagonal) por un **.**(punto), la funcion ```view('pasteles.index');``` toma como carpeta raiz a ```resources/views/``` por lo que no tenemos la necesidad de agregarlo en la ruta. Ademas se esta concatenando el metodo ```with('nombre', $var);``` que como **primer** parametro pide el nombre con el cual se va a poder usar una variable del lado de la vista, y como **segundo** parametro recibe la variable que se va a mandar a la vista.
+Eloquent nos facilita mucho las consultas a la BD y hace que sea portable nuestro codigo, en el metodo decimos que seleccione todos los pasteles y os envie a una vista llama **index** ubicada en la carpeta ```resoures/views/pasteles/```, como vimmos en el [capitulo 10](chapter10.md) las rutas en blade cambian la **/**(diagonal) por un **.**(punto), la funcion ```view('pasteles.index');``` toma como carpeta raiz a ```resources/views/``` por lo que no tenemos la necesidad de agregarlo en la ruta. Ademas se esta concatenando el metodo ```with('nombre', $var);``` que como **primer** parametro pide el nombre con el cual se va a poder usar una variable del lado de la vista, y como **segundo** parametro recibe la variable que se va a mandar a la vista.
 
 ####Create - Pagina de registro
 
@@ -198,7 +198,7 @@ Despues de asignar los valores de la peticion a la variable ```$pastel```, se us
 
 ####Destroy - Funcion de borrado
 
-Este metodo tiene la funcion de eliminar el registro de la BD, pero para efectuarlo tenemos dos opciones, la **primer** forma: crear una variable ```$pastel``` y despues usar el metodo ```delete()``` de Eloquent. o bien la **segunda**: directamente del modelo usar el metodo de Eloquent ```destroy($id)```, que se encarga de directamente buscar y eliminar el registro, finalmente vamos a redirigir al index, el metodo al final quedara de la siguiente forma: 
+Este metodo tiene la funcion de eliminar el registro de la BD, pero para efectuarlo tenemos dos opciones, la **primer** forma: crear una variable ```$pastel``` y despues usar el metodo ```delete()``` de Eloquent. o bien la **segunda**: directamente del modelo usar el metodo de Eloquent ```destroy($id)```, que se encarga de directamente buscar y eliminar el registro, finalmente vamos a redirigir al index, el metodo al final quedara de la siguiente forma:
 
 ```
 	public function destroy($id)
