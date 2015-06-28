@@ -35,7 +35,7 @@ Route::get('saludo', function(){
 
 De esta forma con la función view() le estamos diciendo a Larael que busque dentro de la carpeta ```resources/views/``` la vista **saludo.blade.php**, por convension las vistas Laravel no necesita que especifiquemos la extension ***.blade.php***, sino solo su nombre. Una vez hecho esto debemos ver este resultado o uno similar:
 
-![](images/vista_saludo.png)
+![](../images/vista_saludo.png)
 
 Continuando con el ejemplo de los Pasteles vamos a mandar a la vista el nombre de un pastel, dentro de la ruta saludo vamos a obtener el primer Pastel de chocolate de nuestra BD y a poner ese nombre en vez del mensaje. Para esto podemos usar el scope de sabor para obtener los pasteles de chocolate y despues decirle que con el metodo first() nos regrese el primer pastel y eso guardaro en una variable, dejando la ruta de la siguiente forma:
 
@@ -54,7 +54,7 @@ De esta forma estamos diciendo a la ruta que nos regrese la vista **saludo.blade
 
 Esta linea va justo abajo del mensaje **Hola mundo desde Laravel**, y ahora si debemos de ver algo parecido a esto ya que nuestras BD tienen cosas diferentes y gracias a Faker ninguno de nuestros resultados deberia ser igual:
 
-![](images/vista_pastel.png)
+![](../images/vista_pastel.png)
 
 Ahora si bien usamos los caracteres de las dobles llaves y no sabemos bien que son, esto es parte de la sintaxis que ahora veremos con **Blade**.
 
@@ -158,7 +158,7 @@ Ahora nuestra vista ya no tiene el encabezado HTML normal ni las etiquetas **<bo
 
 Ahora el resultado seria algo parecido a esto:
 
-![](images/vista_pasteles_bootstrap.png)
+![](../images/vista_pasteles_bootstrap.png)
 
 Nos podemos dar cuenta que cambiaron muchas cosas, ahora tenemos una barra de navegacion en la parte superior de la ventana y el debugbar en la parte inferior, ademas de que la tipografia ha cambiado. Esto es porque dentro del template app se estan agregando hojas de estilo [CSS](https://es.wikipedia.org/wiki/Hoja_de_estilos_en_cascada).
 

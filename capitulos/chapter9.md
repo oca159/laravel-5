@@ -2,7 +2,7 @@
 
 La siguiente imágen muestra el proceso que se realiza cuando ingresamos a una URL. Además muestra la arquitectura del patrón [MVC](https://es.wikipedia.org/wiki/Modelo%E2%80%93vista%E2%80%93controlador) que utiliza laravel para el desarrollo de proyectos.
 
-![](images/arquitectura.png)
+![](../images/arquitectura.png)
 
 Cuando ingresamos a una url directamente desde el navegador lo hacemos mediante una petición http de tipo GET, esta solicitud se envía al archivo routes.php ubicado dentro de **app/Http/routes.php**, en caso de no existir nos dará un error, si la ruta existe, nos llevará a un controlador en el cuál se encuentra la lógica , el controlador interaccionará con un modelo (opcionalmente) para recuperar información de una base de datos. Esta información llega al controlador y desde el controlador invocamos una vista, las vistas se encuentran en el directorio **resources/views**, finalmente la vista se carga y se muestra en el navegador.
 
@@ -69,11 +69,11 @@ Route::get('home', 'HomeController@index');
 Los parámetros de las rutas pueden ser utilziados para introducir valores de relleno en tus definiciones de ruta. Esto creará un patrón sobre el cual podamos recoger segmentos de la URI y pasarlos al gestor de la lógica de la aplicación.
 Para dejarlo un poco más claro pondremos unos ejemplos.
 
-![](images/rutas-parametros.png)
+![](../images/rutas-parametros.png)
 
 De igual forma es posible restringir rutas por medio de expresiones regulares como por ejemplo:
 
-![](images/rutas-expresiones.png)
+![](../images/rutas-expresiones.png)
 
 En la imagen anterior podemos ver dos conceptos nuevos, el uso de valores por default lo cúal logramos con el simbolo (?) despues del nombre de la variable y en la función asignandole un valor por defecto, en este caso el entero 1.
 

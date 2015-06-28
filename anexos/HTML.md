@@ -26,7 +26,7 @@ La codificación de caracteres se hace de la siguiente manera:
 * HTML Local Storage
 * HTML Application Cache
 * HTML Web Workers
-* HTML SSE 
+* HTML SSE
 
 # Plantilla básica de un documento en HTML5
 Cualquier documento en HTML5 debe contener la siguiente estructura básica.
@@ -56,7 +56,7 @@ En la sección del cuerpo `<body>` escribiremos:
 * Encabezados
 * Secciones
 * Parrafos
-* Elementos multimedia : audio, video, img 
+* Elementos multimedia : audio, video, img
 * Texto en negritas, cursiva y subrayado.
 * Tablas
 * Listas
@@ -69,14 +69,14 @@ Los encabezados en html tienen 6 tamaños diferentes y se escriben de la siguien
 
 | HTML  | Resultado |
 | ------------- | ------------- |
-| ![](images/encabezados.png)  | ![](images/encabezados2.png)  |
+| ![](../images/encabezados.png)  | ![](../images/encabezados2.png)  |
 
 # Secciones (divisiones)
 Podemos dividir nuestro documento en secciones distintas con la etiqueta `<div>` para tener un mayor orden sobre nuestro documento y aplicar diferentes estilos según la sección.
 
 | HTML  | Resultado |
 | ------------- | ------------- |
-| ![](images/div.png)  | ![](images/div2.png)  |
+| ![](../images/div.png)  | ![](../images/div2.png)  |
 
 # Formato de texto
 Podemos definir diferentes el formato del texto como: negrita, cursiva, subrayado, tipo de letra, tamaño de fuente, saltos de línea, párrafos, citas, etc.
@@ -100,14 +100,14 @@ Podemos definir diferentes el formato del texto como: negrita, cursiva, subrayad
 | HTML  | Resultado |
 | ------------- | ------------- |
 | `<form>`      | Define un Formulario HTML|
-| `<input>`     | ![](images/form.png) |
+| `<input>`     | ![](../images/form.png) |
 | `<textarea>`  | Define un textarea para guardar una gran cantidad de texto. |
 | `<button>`    | Define un botón|
 | `<select>`    | Define una lista desplegable|
 | `<option>`    | Define una opción en una lista desplegable|
 | `<label>`     | Define una etiqueta para un input|
 
-##Atributos de los formularios 
+##Atributos de los formularios
 
 * Seccion en desarrollo.
 
@@ -137,7 +137,7 @@ Podemos definir diferentes el formato del texto como: negrita, cursiva, subrayad
          <td>celda</td>
        </tr>
     </tbody>
- </table> 
+ </table>
 ```
 
 Las tablas se escriben con la etiqueta  `<table>`, dentro de la tabla tendremos filas y columnas, la etiqueta `<tr>` define las filas y la etiqueta `<td>` define las columas.
@@ -153,7 +153,7 @@ Las imágenes pueden ser de formato png, jpg o gif y se escriben con la etiqueta
 Ejemplo:
 
 ```html
- <img src="html5.gif" alt="HTML5 Icon" width="128" height="128"> 
+ <img src="html5.gif" alt="HTML5 Icon" width="128" height="128">
 ```
 
 Los Hipervínculos o links son definidos con la etiqueta `<a>` que cuenta con los siguientes atributos:
@@ -169,19 +169,19 @@ Ejemplo de un link:
 
 ```html
 <a href="https://www.facebook.com/oca159">Facebook</a>
-``` 
+```
 
 Dentro de las etiquetas `<a>` puede ir un texto o una imagen.
 
 ```html
 <a href="default.asp">
   <img src="smiley.gif" alt="HTML tutorial">
-</a> 
+</a>
 ```
 
-Los hipervínculos también pueden redireccionar a un segmento específico de la página web. 
+Los hipervínculos también pueden redireccionar a un segmento específico de la página web.
 
-Ejemplo: 
+Ejemplo:
 Primero creamos una sección con un atributo id.
 
 ```html

@@ -60,7 +60,7 @@ php artisan make:controller PastelesController
 
 Con esto vamos a poder trabajar para cada metodo del controlador una ruta y las funciones internas son las que se van a ejecutar, el archivo creado se vera de la siguiente manera:
 
-![](images/PastelesController.png)
+![](../images/PastelesController.png)
 
 Con todos los metodos podemos examinar por linea de comandos todas las rutas que nuestro proyecto tiene registradas:
 
@@ -70,7 +70,7 @@ php artisan route:list
 
 Este comando nos va a mostrar en la consola un resultado similar a esto:
 
-![](images/route_list.png)
+![](../images/route_list.png)
 
 aqui podemos ver el nombre de nuestras rutas, de que tipo son, si es que reciben parametros y como se llaman, esta informacion es muy util para poder asociar los metodos del controlador con las rutas y tambien como es que las vamos a usar en el navegador.
 

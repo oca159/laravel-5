@@ -24,7 +24,7 @@ selector [, selector2, ...] [:pseudo-class][::pseudo-element] {
 
 Un conjuno de reglas consiste en un selector y un bloque de declaraciones.
 
-![](images/css.png)
+![](../images/css.png)
 
 ## Formas de insertar CSS en nuestro documento HTML
 Existen 3 formas de insertar CSS:

@@ -65,7 +65,7 @@ Route::get('pruebasPastel', function(){
 
 Y en el navegador deberiamos ver algo como esto:
 
-![](images/collection.png)
+![](../images/collection.png)
 
 Esto es la función ```dd($pasteles)``` mostrando el contenido de la variable ```$pasteles```. Ahora bien si tuvieramos la necesidad de realizar siempre un mismo filtro, Eloquent nos provee de una herramienta llamada **scopes** que lo que realizan son consultas en especifico encapsulandolas dentro de funciones en el modelo, por ejemplo si quisieramos que el modelo **Pastel** tuviera una funcion que me diera todos los pasteles de vainilla, otra de chocolate y otra función mas para cheesecake, entonces podria crear un scope para cada una.
 

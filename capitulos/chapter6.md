@@ -1,10 +1,10 @@
-#Migraciones 
+#Migraciones
 
 Cuando creamos nuestras bases de datos solemos crear diagramas que nos facilitan la abstracción de como se va a almacenar nuestra información, pero la forma de llevarlo a la realidad en algun gestor de bases de datos, como por ejemplo: **MySQL**, **SQLite**, **PostgreSQL**, **SQL Server**, etc., lo más comun es meternos al lenguaje de script encargado de implementar nuestra idea de la BD y ejecutar dicho script, o incluso ocupar programas más avanzados que nos sirven como interfaz para crearlas de una forma más gráfica y sin la necesidad de profundizar demasiado en el lenguaje, como **Workbench** o **Navicat**.
 
 En Laravel se lleva a otro contexto esta situación, puesto que visto de la forma tradicional si se requieren cambios en la base de datos tenemos que meternos ya sea a otro programa para cambiar el diagrama de la base o a un archivo SQL con una sintaxis usualmente complicada o difícil de leer y ejecutar los cambios para reflejarlos en el proyecto, sin embargo, debido a que con esto no contamos son un control de los cambios (control de versiones) sobre la base de datos, si necesitamos consultar un cambio anterior o de repente la solución previa o inicial era la que se necesita al momento debemos re-escribir todo otra vez, cosa que con la **migraciones** se soluciona instantaneamente.
 
-Las migraciones son archivos que se encuentran el la ruta `database/migrations/` de nuestro proyecto Laravel, por defecto en la instalación de Laravel 5 se encuentran dos migraciones ya creadas, ***create_users_table*** y ***create_password_resets_table***. 
+Las migraciones son archivos que se encuentran el la ruta `database/migrations/` de nuestro proyecto Laravel, por defecto en la instalación de Laravel 5 se encuentran dos migraciones ya creadas, ***create_users_table*** y ***create_password_resets_table***.
 
 Para crear nuestras migraciones en Laravel se usa el siguiente comando:
 
@@ -30,9 +30,9 @@ Created Migration: 2015_06_23_054801_crear_tabla_pasteles
 ```
 Y nos creará además el siguiente archivo:
 
-![](Screenshot - 230615 - 00:48:22.png)
+![](../images/Screenshot - 230615 - 00:48:22.png)
 
-Ahora bien se puede observar que el archivo como tal no se llama simplemente ***crear_tabla_pasteles*** sino ***2015_06_23_054801_crear_tabla_pasteles***, esto pasa porque Laravel al crear una migración agrega como préfijo la fecha y hora en la que fué creada la migración para poder ordenar qué migración va antes que otra, por lo cual si tu ejecutas este comando, obviamente el nombre de tu archivo será diferente pues la fecha y hora no pueden ser las mismas que la mia al crear este ejemplo. Además las migraciones que vienen por defecto en Laravel también se encuentran con este formato por lo cual podemos observar que para todos estos dos archivos si tienen el mismo nombre exactamente. 
+Ahora bien se puede observar que el archivo como tal no se llama simplemente ***crear_tabla_pasteles*** sino ***2015_06_23_054801_crear_tabla_pasteles***, esto pasa porque Laravel al crear una migración agrega como préfijo la fecha y hora en la que fué creada la migración para poder ordenar qué migración va antes que otra, por lo cual si tu ejecutas este comando, obviamente el nombre de tu archivo será diferente pues la fecha y hora no pueden ser las mismas que la mia al crear este ejemplo. Además las migraciones que vienen por defecto en Laravel también se encuentran con este formato por lo cual podemos observar que para todos estos dos archivos si tienen el mismo nombre exactamente.
 
 Dentro de la estructura del archivo podemos ver dos funciones, una llamada **up()** y otra llamada **down()**, la primer función es en donde vamos a especificar la estructura de nuestra tabla, inicialmente y gracias al comando se encuentran ya algunas cosas esscritas como lo son la clase **Schema** en la cual se llama al método **create**, el cual nos permite crear la tabla en nuestra base de datos, esta recibe dos parámetros, el primero es el nombre que va a recibir la tabla que si no mal recuerdan es el que se le dio en el comando y por lo cual ya se encuentra en su lugar, y el segundo parámetro es una función closure o función anónima que lo que hace es definir las columnas de nuestra tabla, a su vez esta función anónima recibe como parámetro un objeto de tipo **Blueprint** que se agregó dentro del namespace con la palabra **use** en la cabecera del archivo, el objeto `$table` es con el que vamos a trabajar para definir los campos, como se ve en la imagen anterior esto se logra escribiendo `$table->tipo_dato('nombre');`, y esto puede variar dependiendo el tipo de dato que se use y para ello podemos revisar la documentación oficial de Laravel [aquí](http://laravel.com/docs/5.0/schema#adding-columns) para poder ver todos los tipos de campos con los que contamos.
 
@@ -76,7 +76,7 @@ En el dado caso que necesitaramos agregar más campos a la tabla pasteles, podr�
 
 Ahora el archivo resultante quedaría así:
 
-![](Screenshot - 230615 - 01:56:19.png)
+![](../images/Screenshot - 230615 - 01:56:19.png)
 
 Para poder agregar más columnas a las tablas desde Laravel en vez de llamar al método ```create``` llamamos al método ```table``` de la clase ```Schema``` pasandole como primer parámetro a que tabla se va a agregar los campos y como segundo parámetro la función anónima donde definimos que columnas se agregaran.
 
@@ -121,13 +121,13 @@ use Faker\Factory as Faker;
 ```
 Quedando el archivo de la siguiente forma:
 
-![](Screenshot - 230615 - 02:52:52.png)
+![](../images/Screenshot - 230615 - 02:52:52.png)
 
 Después crearemos una variable llamada ```$faker``` que nos servira para poblar la base de datos, ahora bien usando la clase DB, si bien dentro del ejemplo queremos crear 50 pastelesvamos a crear un for para que ejecute nuestro código de inserción 50 veces y el componente de **Faker** en cada pasada cambiará los valores del registro que se va a agregar, quedando de esta forma:
 
 ```php
 $faker = Faker::create();
-for ($i=0; $i < 50; $i++) { 
+for ($i=0; $i < 50; $i++) {
     \DB::table('pasteles')->insert(array(
        	'nombre' => $faker->firstNameFemale,
        	'sabor'  => $faker->randomElement(['chocolate','vainilla','cheesecake']),

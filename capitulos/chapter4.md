@@ -34,11 +34,11 @@ El directorio app tiene a su vez otros subdirectorios importantes pero uno de lo
 
 A nivel de la raíz del directorio app encontraremos el modelo `User.php`, los modelos comunmente se ubicarán a nivel de la raíz de la carpeta app aunque igual es posible estructurarlos de la forma que queramos en una carpeta llamada `Models`por ejemplo.
 
-![](images/app.png)
+![](../images/app.png)
 
 ### El directorio config
 
-La configuración tanto para el framework como para tu aplicación se mantiene en este directorio. La configuración de Laravel existe como un conjunto de archivos PHP que contienen matrices clave-valor. 
+La configuración tanto para el framework como para tu aplicación se mantiene en este directorio. La configuración de Laravel existe como un conjunto de archivos PHP que contienen matrices clave-valor.
 Entre los archivos más usados del directorio config se encuentran:
 
 * app.php : En este archivo nos puede interesar configurar el lenguaje de nuestra aplicación, la zona horaria, los providers y aliases de las clases más comunes.
@@ -52,7 +52,7 @@ Aquí se encontraran los archivos relacionados con el manejo de la base de datos
 * migrations : Todas las migraciones que creamos se ubican en este subdirectorio.
 * seeds : Contiene todas las clases de tipo seed.
 
-![](images/database.png)
+![](../images/database.png)
 
 ### El directorio public
 
@@ -67,16 +67,16 @@ Dentro de este directorio se encuentran los subdirectorios:
 * assets : Aquí se ubican todos los archivos less de nuestra aplicación (útil para desarrolladores front-end).
 * lang : Aquí se encuentran todos los archivos de internacionalización, es decir, los archivos para poder pasar nuestro proyecto de un idioma a otro. Normalmente habrá una carpeta por cada idioma, ejemplo:
     * en : idioma inglés
-    * es : idioma español 
+    * es : idioma español
 * views : Aquí ubicaremos nuestras vistas en formato php o php.blade, es recomendable crear una carpeta por cada controlador, además agregar una carpeta **templates** para las plantillas. Una plantilla es una vista general, que tiene segmentos que pueden ser reemplazados mediante la herencia de plantillas, más adelante se hablará de este tema.
 
-![](images/resources.png)
+![](../images/resources.png)
 
 ### El directorio storage
 
 Cuando Laravel necesita escribir algo en el disco, lo hace en el directorio storage . Por este motivo, tu servidor web debe poder escribir en esta ubicación. Aquí podemos encontrar otros directorios entre los cuales el más relevante es el subdirectorio framework, es ahí donde se almacena el cache y las vistas compiladas.
 
-![](images/storage.png)
+![](../images/storage.png)
 
 ### El directorio tests
 
