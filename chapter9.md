@@ -1,141 +1,80 @@
-#Modelos y uso de  Eloquent
+# Enrutamiento básico
 
-###Eloquent
+La siguiente imágen muestra el proceso que se realiza cuando ingresamos a una URL. Además muestra la arquitectura del patrón [MVC](https://es.wikipedia.org/wiki/Modelo%E2%80%93vista%E2%80%93controlador) que utiliza laravel para el desarrollo de proyectos.
 
-En Laravel podemos hacer uso de un [**ORM**](https://es.wikipedia.org/wiki/Mapeo_objeto-relacional) llamado Eloquent, un [**ORM**](https://es.wikipedia.org/wiki/Mapeo_objeto-relacional) es un ***Mapeo Objeto-Relacional*** por sus siglas en ingles (Object-Relational mapping), que es una forma de mapear los datos que se encuentran en la base de datos almacenados en un lenguaje de script SQL a objetos de PHP y viceversa, esto surge con la idea de tener un codigo portable con el que no tengamos la necesidad de usar lenguaje SQL dentro de nuetras clases de PHP.
+![](images/arquitectura.png)
 
-Eloquent hace uso de los **Modelos** para recibir o enviar la información a la base de datos, para esto analizaremos el modelo que viene por defecto en Laravel, este es el modelo **User** que se ubica en la carpeta ```app/```, los modelos hacen uso de PSR-4 y namespaces, un modelo nos ayuda a definir que tabla, atributos se pueden llenar y que otros se deben mantener ocultos.
+Cuando ingresamos a una url directamente desde el navegador lo hacemos mediante una petición http de tipo GET, esta solicitud se envía al archivo routes.php ubicado dentro de **app/Http/routes.php**, en caso de no existir nos dará un error, si la ruta existe, nos llevará a un controlador en el cuál se encuentra la lógica , el controlador interaccionará con un modelo (opcionalmente) para recuperar información de una base de datos. Esta información llega al controlador y desde el controlador invocamos una vista, las vistas se encuentran en el directorio **resources/views**, finalmente la vista se carga y se muestra en el navegador.
 
-Los modelos usan convenciones para que a Laravel se le facilite el trabajo y nos ahorre tanto lineas de codigo como tiempo para relacionar mas modelos, las cuales son:
+Así es como funciona el modelo MVC (Model-View-Controller).
 
-* El nombre de los modelos se escribe en singular, en contraste con las tablas de la BD que se escriben en plural.
+Supongamos que queremos ingresar a la siguiente URL *http:/dominio.com/saludo* y desplegar una página con el mensaje “Bienvenido :)”.
+En laravel la porción /saludo pertenecería a una ruta que regresa una respuesta o una vista dependiendo lo complejo que llegue a ser lo que queramos mostrar. La parte de dominio.com pertenecería a localhost si lo andamos probando de manera local.
+En nuestro ejemplo lo que mostraremos es un mensaje muy simple por lo cual no es necesario hacer mostrar una vista.
+Para lograrlo haremos lo siguiente:
 
-* Usan notacion UpperCamelCase para sus nombres.
-
-Estas convenciones nos ayudan a detectar automaticamente las tablas, por ejemplo: el modelo **User** se encuentra en **singular** y con notacion **UpperCamelCase** y para Laravel poder definir que tabla es la que esta ligada a este modelo le es suficiente con realizar la conversion a notacion **underscore** y **plural**, dando como resultado la tabla: **users**.
-
-Y esto aplica para cuando queremos crear nuestros modelos, si tenemos una tabla en la base de datos con la que queremos trabajar que se llama **user_profiles**, vemos que se encuentra con las convenciones para tablas de bases de datos (plural y underscore), entonces el modelo para esta tabla cambiando las convenciones seria: **UserProfile** (singular y UpperCamelCase).
-
-Retomando el ejemplo que vimos en el [Capítulo 5](chapter5.md) sobre la migracion de pasteles, crearemos ahora un modelo para poder trabajar con esa tabla, el cual recibira el nombre de **Pastel** y el comando para poder crear nuestro modelos es:
-
-```shell
-php artisan make:model Pastel
 ```
-Con esto se generara el archivo en donde ya se encuentra el modelo **User** en la carpeta ```app/``` y dentro de el vamos a definir la tabla que se va a usar con esta linea:
-
-```php
-protected $table = 'pasteles';
-```
-#####¿Pero no se suponia que Laravel identificaba automaticamente que tabla usar?
-
-Si lo hace pero si cambiamos las convenciones del modelo **Pastel** el resultado seria **pastels** y nuestra tabla se llama **pasteles**, esto es un problema para nosotros por el hecho del uso del lenguaje español porque la conversion de singular a plural no es la misma que la forma en que se hace en ingles, debido a esto nos vemos forzados a definir el nombre de la tabla.
-
-Bien una vez creado nuestro modelo pasaremos a crear una ruta de tipo **get** en nuestro archivo ***routes.php*** que se vio en el [Capítulo 8](chapter8.md) sobre enrutamiento básico, que quedaria de la siguiente forma:
-
-```php
-Route::get('pruebasPastel', function(){
-
+Route::get('saludo', function () {
+    return "Bienvenido :)";
 });
 ```
 
-Dentro de esta ruta de prueba vamos a usar nuestro modelo, pero como estamos usando la especificacion PSR-4 debemos incluir el namespace del modelo, que seria igual a esto:
+### Tipos de rutas por encabezado Http
+Las rutas están siempre declaradas usando la clase Route . Eso es lo que tenemos al principio, antes de :: . La parte get es el método que usamos para ‘capturar’ las peticiones que son realizadas usando el verbo ‘GET’ de HTTP hacia una URL concreta.
 
-```php
-use Curso\Pastel;
+Como verás, todas las peticiones realizadas por un navegador web contienen un verbo. La mayoría de las veces, el verbo será GET , que es usado para solicitar una página web. Se envía una petición GET cada vez que escribes una nueva dirección web en tu navegador.
+
+Aunque no es la única petición. También está POST , que es usada para hacer una petición y ofrecer algunos datos. Normalmente se usa para enviar un formulario en la que se necesita enviar los datos sin mostrarlo en la URL.
+
+Hay otros verbos HTTP disponibles. He aquí algunos de los métodos que la clase de enrutado tiene disponible para ti:
+
+```
+Route::get();
+Route::post();
+Route::any();
+Route::delete();
+Route::put();
 ```
 
-Con esto estamos diciendo que incluya la clase **Pastel** que es nuestro modelo, y con esto podemos ya hacer consultas a nuestra BD y mapear a objetos PHP. En la [documentacion oficial](http://laravel.com/docs/5.0/eloquent) de Laravel podemos ver todas las opciones que nos permite **Eloquent**, unas de las instrucciones basicas de este son ***get()*** que nos regresa todos los registros de la BD y ***first()*** que nos regresa el primer registro de una seleccion.
 
-A su vez podemos unir esto a mas filtros de seleccion SQL, como por ejemplo seleccionar el primer pastel de vainilla, la sintaxis de Eloquent seria la siguiente:
+Cualquier método de la clase Route recibe siempre dos argumentos, el primero es la URI con la que queremos hacer coincidir la URL y el segundo es la función a realizar que en este caso es un Clousure  que no es otra cosa que una función anonima, es decir, que no tiene un nombre.
 
-```php
-$pastel = Pastel::where('sabor','vainilla')->first();
+### Rutas de tipo get
+En este caso ocuparemos el método estático **get** para escribir una ruta que responda a una petición de este tipo, las rutas de tipo get son las más usadas.
+El método estático **get** recibe como primer parámetro un string indicando la url con la cuál vamos a ingresar, el string "/alumnos" responderá a la solicitud http://localhost:8000/alumnos, el string "/" equivale a htpp://localhost:8000, es decir, la ruta por defecto.
+Como segundo parámetro el método estático **get** recibe un `closure` (una función sin nombre) que puede devolver una view o un string.
 ```
-
-Esto nos va a dar el primer pastel sabor vainilla, pero si quisieramos todos los pasteles de vainilla cambiariamos el metodo ```first()``` por el metodo ```get()``` para obtener todos.
-
-Y si queremos ver el resultado de esto y que de verdad estamos haciendo lo correcto podemos usar la funcion ```dd()``` para mostrar en pantalla el valor de una variable, con esto entonces nuestra ruta le agregariamos lo siguiente:
-
-```php
-Route::get('pruebasPastel', function(){
-	$pasteles = Pastel::where('sabor','vainilla')->get();
-	dd($pasteles);
+// ruta de tipo GET que devuelve una vista
+Route::get('/', function () {
+    return view('welcome');
 });
-```
 
-Y en el navegador deberiamos ver algo como esto:
-
-![](images/collection.png)
-
-Esto es la función ```dd($pasteles)``` mostrando el contenido de la variable ```$pasteles```. Ahora bien si tuvieramos la necesidad de realizar siempre un mismo filtro, Eloquent nos provee de una herramienta llamada **scopes** que lo que realizan son consultas en especifico encapsulandolas dentro de funciones en el modelo, por ejemplo si quisieramos que el modelo **Pastel** tuviera una funcion que me diera todos los pasteles de vainilla, otra de chocolate y otra función mas para cheesecake, entonces podria crear un scope para cada una.
-
-Con el ejemplo de la ruta pruebasPastel para el sabor vainilla:
-
-```php
-	public function scopeVainilla($query){
-    	return $query->where('sabor','vainilla');
-    }
-```
-
-Los scopes en la función se debe iniciar el nombre de la función con la palabra **scope** y seguido en notacion camelCase el nombre con el cual se va a llamar el scope. Y su equivalente dentro de la ruta seria la siguiente:
-
-```php
-	Route::get('pruebasPastel', function(){
-		$pasteles = Pastel::vainilla()->get();
-		dd($pasteles);
-	});
-```
-
-También podemos crear scopes dinamicos de la siguiente forma:
-
-```php
-	public function scopeSabor($query, $sabor){
-    	return $query->where('sabor',$sabor);
-    }
-```
-Esto nos daria una función generica para obtener los pasteles de cierto sabor y su implementacion seria asi:
-
-```php
-	Route::get('pruebasPastel', function(){
-		$pasteles = Pastel::sabor('vainilla')->get();
-		dd($pasteles);
-	});
-```
-
-Además con Eloquent tambien podemos insertar, actualizar o eliminar registros, por ejemplo:
-
-Para insertar la sintaxis seria la siguiente:
-
-```php
-$pastel = new Pastel;
-
-$pastel->nombre = 'Pastel Richos Style';
-$pastel->sabor  = 'chessecake';
-
-$pastel->save();
+// ruta de tipo GET que devuelve un simple string
+Route::get('/', function () {
+    return "Hola mundo";
+});
 
 ```
 
-Para actualizar seria la siguiente:
+El método **view** dentro del closure recibe como parámetro el nombre de una vista sin la extensión. En el ejemplo de arriba la vista `welcome` se encuentra ubicada en **resources/views/welcome.blade.php** si escribimos `view('pasteles.lista_pasteles')` estamos indicando que regresará el archivo *lista_pasteles.blade.php* ubicado en **resources/views/pasteles/lista_pasteles.blade.php**.
 
-```php
-$pastel = Pastel::find(51);
+Las rutas pueden ser relacionadas con métodos de un controlador. En el siguiente ejemplo, la ruta http://localhost:8000/home regresará lo que indiquemos en el método index del **Controller** HomeController.
 
-$pastel->sabor = 'chocolate';
-
-$pastel->save();
+```
+Route::get('home', 'HomeController@index');
 ```
 
-Para eliminar seria la siguiente:
+### Parametros en las rutas de tipo get
 
-```php
-$pastel = Pastel::find(51);
+Los parámetros de las rutas pueden ser utilziados para introducir valores de relleno en tus definiciones de ruta. Esto creará un patrón sobre el cual podamos recoger segmentos de la URI y pasarlos al gestor de la lógica de la aplicación.
+Para dejarlo un poco más claro pondremos unos ejemplos.
 
-$pastel->delete();
-```
+![](images/rutas-parametros.png)
 
-o bien podriamos destruir el registro directamente con el modelo si tenemos su ID:
+De igual forma es posible restringir rutas por medio de expresiones regulares como por ejemplo:
 
-```php
-Pastel::destroy(51);
-```
+![](images/rutas-expresiones.png)
+
+En la imagen anterior podemos ver dos conceptos nuevos, el uso de valores por default lo cúal logramos con el simbolo (?) despues del nombre de la variable y en la función asignandole un valor por defecto, en este caso el entero 1.
+
+Lo segundo que vemos es el uso del método `where` el cúal nos permite establecer expresiones regulares a las variables que usamos en la construcción de las URIs.

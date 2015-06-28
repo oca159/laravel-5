@@ -1,89 +1,141 @@
-# Estructura de un proyecto en Laravel
-Todos los proyectos nuevos en Laravel 5.1 tienen la siguiente estructura de directorios:
+#Modelos y uso de  Eloquent
 
-* app/
-* bootstrap/
-* config/
-* database/
-* public/
-* resources/
-* storage/
-* tests/
-* vendor/
-* .env
-* .env.example
-* .gitattributes
-* .gitignore
-* artisan
-* composer.json
-* composer.lock
-* gulpfile.js
-* package.json
-* phpspec.yml
-* phpunit.xml
-* readme.md
-* server.php
+###Eloquent
 
-A continuación describiremos los directorios y archivos más importantes que nos ayuden a entender más el funcionamiento del framework.
+En Laravel podemos hacer uso de un [**ORM**](https://es.wikipedia.org/wiki/Mapeo_objeto-relacional) llamado Eloquent, un [**ORM**](https://es.wikipedia.org/wiki/Mapeo_objeto-relacional) es un ***Mapeo Objeto-Relacional*** por sus siglas en ingles (Object-Relational mapping), que es una forma de mapear los datos que se encuentran en la base de datos almacenados en un lenguaje de script SQL a objetos de PHP y viceversa, esto surge con la idea de tener un codigo portable con el que no tengamos la necesidad de usar lenguaje SQL dentro de nuetras clases de PHP.
 
-### El directorio app
+Eloquent hace uso de los **Modelos** para recibir o enviar la información a la base de datos, para esto analizaremos el modelo que viene por defecto en Laravel, este es el modelo **User** que se ubica en la carpeta ```app/```, los modelos hacen uso de PSR-4 y namespaces, un modelo nos ayuda a definir que tabla, atributos se pueden llenar y que otros se deben mantener ocultos.
 
-App es usado para ofrecer un hogar por defecto a todo el código personal de tu proyecto. Eso incluye clases que puedan ofrecer funcionalidad a la aplicación, archivos de configuración y más. Es considerado el directorio más importante de nuestro proyecto ya que es en el que más trabajaremos.
+Los modelos usan convenciones para que a Laravel se le facilite el trabajo y nos ahorre tanto lineas de codigo como tiempo para relacionar mas modelos, las cuales son:
 
-El directorio app tiene a su vez otros subdirectorios importantes pero uno de los más utilizados es el directorio **Http** en el cuál ubicaremos nuestros `Controllers`, `Middlewares` y `Requests`en sus carpetas correspondientes, además dentro del subdirectorio **Http** encontremos también el archivo `routes.php` el cuál es el archivo en el que escribiremos las rutas de la aplicación.
+* El nombre de los modelos se escribe en singular, en contraste con las tablas de la BD que se escriben en plural.
 
-A nivel de la raíz del directorio app encontraremos el modelo `User.php`, los modelos comunmente se ubicarán a nivel de la raíz de la carpeta app aunque igual es posible estructurarlos de la forma que queramos en una carpeta llamada `Models`por ejemplo.
+* Usan notacion UpperCamelCase para sus nombres.
 
-![](images/app.png)
+Estas convenciones nos ayudan a detectar automaticamente las tablas, por ejemplo: el modelo **User** se encuentra en **singular** y con notacion **UpperCamelCase** y para Laravel poder definir que tabla es la que esta ligada a este modelo le es suficiente con realizar la conversion a notacion **underscore** y **plural**, dando como resultado la tabla: **users**.
 
-### El directorio config
+Y esto aplica para cuando queremos crear nuestros modelos, si tenemos una tabla en la base de datos con la que queremos trabajar que se llama **user_profiles**, vemos que se encuentra con las convenciones para tablas de bases de datos (plural y underscore), entonces el modelo para esta tabla cambiando las convenciones seria: **UserProfile** (singular y UpperCamelCase).
 
-La configuración tanto para el framework como para tu aplicación se mantiene en este directorio. La configuración de Laravel existe como un conjunto de archivos PHP que contienen matrices clave-valor. 
-Entre los archivos más usados del directorio config se encuentran:
+Retomando el ejemplo que vimos en el [Capítulo 5](chapter5.md) sobre la migracion de pasteles, crearemos ahora un modelo para poder trabajar con esa tabla, el cual recibira el nombre de **Pastel** y el comando para poder crear nuestro modelos es:
 
-* app.php : En este archivo nos puede interesar configurar el lenguaje de nuestra aplicación, la zona horaria, los providers y aliases de las clases más comunes.
-* database.php : En este archivo podemos configurar principalmente el motor de base de datos al cuál deseamos conectarnos.
+```shell
+php artisan make:model Pastel
+```
+Con esto se generara el archivo en donde ya se encuentra el modelo **User** en la carpeta ```app/``` y dentro de el vamos a definir la tabla que se va a usar con esta linea:
 
-### El directorio database
+```php
+protected $table = 'pasteles';
+```
+#####¿Pero no se suponia que Laravel identificaba automaticamente que tabla usar?
 
-Aquí se encontraran los archivos relacionados con el manejo de la base de datos. Dentro de este directorio se encuentran los subdirectorios:
+Si lo hace pero si cambiamos las convenciones del modelo **Pastel** el resultado seria **pastels** y nuestra tabla se llama **pasteles**, esto es un problema para nosotros por el hecho del uso del lenguaje español porque la conversion de singular a plural no es la misma que la forma en que se hace en ingles, debido a esto nos vemos forzados a definir el nombre de la tabla.
 
-* factories : Aquí escribiremos nuestros model factories.
-* migrations : Todas las migraciones que creamos se ubican en este subdirectorio.
-* seeds : Contiene todas las clases de tipo seed.
+Bien una vez creado nuestro modelo pasaremos a crear una ruta de tipo **get** en nuestro archivo ***routes.php*** que se vio en el [Capítulo 8](chapter8.md) sobre enrutamiento básico, que quedaria de la siguiente forma:
 
-![](images/database.png)
+```php
+Route::get('pruebasPastel', function(){
 
-### El directorio public
+});
+```
 
-Dentro de este directorio colocaremos todos los recursos estáticos de nuestra aplicación, es decir, archivos css, js, imágenes y fuentes.
+Dentro de esta ruta de prueba vamos a usar nuestro modelo, pero como estamos usando la especificacion PSR-4 debemos incluir el namespace del modelo, que seria igual a esto:
 
-Es recomendable crear una carpeta por cada tipo de recurso.
+```php
+use Curso\Pastel;
+```
 
-### El directorio resources
+Con esto estamos diciendo que incluya la clase **Pastel** que es nuestro modelo, y con esto podemos ya hacer consultas a nuestra BD y mapear a objetos PHP. En la [documentacion oficial](http://laravel.com/docs/5.0/eloquent) de Laravel podemos ver todas las opciones que nos permite **Eloquent**, unas de las instrucciones basicas de este son ***get()*** que nos regresa todos los registros de la BD y ***first()*** que nos regresa el primer registro de una seleccion.
 
-Dentro de este directorio se encuentran los subdirectorios:
+A su vez podemos unir esto a mas filtros de seleccion SQL, como por ejemplo seleccionar el primer pastel de vainilla, la sintaxis de Eloquent seria la siguiente:
 
-* assets : Aquí se ubican todos los archivos less de nuestra aplicación (útil para desarrolladores front-end).
-* lang : Aquí se encuentran todos los archivos de internacionalización, es decir, los archivos para poder pasar nuestro proyecto de un idioma a otro. Normalmente habrá una carpeta por cada idioma, ejemplo:
-    * en : idioma inglés
-    * es : idioma español 
-* views : Aquí ubicaremos nuestras vistas en formato php o php.blade, es recomendable crear una carpeta por cada controlador, además agregar una carpeta **templates** para las plantillas. Una plantilla es una vista general, que tiene segmentos que pueden ser reemplazados mediante la herencia de plantillas, más adelante se hablará de este tema.
+```php
+$pastel = Pastel::where('sabor','vainilla')->first();
+```
 
-![](images/resources.png)
+Esto nos va a dar el primer pastel sabor vainilla, pero si quisieramos todos los pasteles de vainilla cambiariamos el metodo ```first()``` por el metodo ```get()``` para obtener todos.
 
-### El directorio storage
+Y si queremos ver el resultado de esto y que de verdad estamos haciendo lo correcto podemos usar la funcion ```dd()``` para mostrar en pantalla el valor de una variable, con esto entonces nuestra ruta le agregariamos lo siguiente:
 
-Cuando Laravel necesita escribir algo en el disco, lo hace en el directorio storage . Por este motivo, tu servidor web debe poder escribir en esta ubicación. Aquí podemos encontrar otros directorios entre los cuales el más relevante es el subdirectorio framework, es ahí donde se almacena el cache y las vistas compiladas.
+```php
+Route::get('pruebasPastel', function(){
+	$pasteles = Pastel::where('sabor','vainilla')->get();
+	dd($pasteles);
+});
+```
 
-![](images/storage.png)
+Y en el navegador deberiamos ver algo como esto:
 
-### El directorio tests
+![](images/collection.png)
 
-Aquí escribiremos los archivos de pruebas que serán ejecutadas posteriormente por phpunit.
+Esto es la función ```dd($pasteles)``` mostrando el contenido de la variable ```$pasteles```. Ahora bien si tuvieramos la necesidad de realizar siempre un mismo filtro, Eloquent nos provee de una herramienta llamada **scopes** que lo que realizan son consultas en especifico encapsulandolas dentro de funciones en el modelo, por ejemplo si quisieramos que el modelo **Pastel** tuviera una funcion que me diera todos los pasteles de vainilla, otra de chocolate y otra función mas para cheesecake, entonces podria crear un scope para cada una.
 
-### El archivo .env y .env.example
+Con el ejemplo de la ruta pruebasPastel para el sabor vainilla:
 
-El archivo .env no existe cuando instalamos laravel, en este archivo se configurará el modo en que se ejecuta nuestra aplicación, por defecto será el modo debug, además podemos configurar la conexión a la base de datos y la conexión con el servidor de correo electronico. El archivo .env lo creamos copiando el archivo **.env.example** y renombrando la copia como **.env**.
+```php
+	public function scopeVainilla($query){
+    	return $query->where('sabor','vainilla');
+    }
+```
 
-Por motivos de seguridad de la base de datos el archivo .env nunca se sube cuando hacemos un push en nuestro repositorio. Es por eso que aparece escrito dentro del archivo **.gitignore** en la raíz de nuestro proyecto.
+Los scopes en la función se debe iniciar el nombre de la función con la palabra **scope** y seguido en notacion camelCase el nombre con el cual se va a llamar el scope. Y su equivalente dentro de la ruta seria la siguiente:
+
+```php
+	Route::get('pruebasPastel', function(){
+		$pasteles = Pastel::vainilla()->get();
+		dd($pasteles);
+	});
+```
+
+También podemos crear scopes dinamicos de la siguiente forma:
+
+```php
+	public function scopeSabor($query, $sabor){
+    	return $query->where('sabor',$sabor);
+    }
+```
+Esto nos daria una función generica para obtener los pasteles de cierto sabor y su implementacion seria asi:
+
+```php
+	Route::get('pruebasPastel', function(){
+		$pasteles = Pastel::sabor('vainilla')->get();
+		dd($pasteles);
+	});
+```
+
+Además con Eloquent tambien podemos insertar, actualizar o eliminar registros, por ejemplo:
+
+Para insertar la sintaxis seria la siguiente:
+
+```php
+$pastel = new Pastel;
+
+$pastel->nombre = 'Pastel Richos Style';
+$pastel->sabor  = 'chessecake';
+
+$pastel->save();
+
+```
+
+Para actualizar seria la siguiente:
+
+```php
+$pastel = Pastel::find(51);
+
+$pastel->sabor = 'chocolate';
+
+$pastel->save();
+```
+
+Para eliminar seria la siguiente:
+
+```php
+$pastel = Pastel::find(51);
+
+$pastel->delete();
+```
+
+o bien podriamos destruir el registro directamente con el modelo si tenemos su ID:
+
+```php
+Pastel::destroy(51);
+```
