@@ -12,7 +12,7 @@
 * [Capítulo 9. Modelos y uso de Eloquent](chapter9.md)
 * [Capítulo 10. Vistas y motor de plantillas Blade](chapter10.md)
 * [Capítulo 11. Controladores](chapter11.md)
-* Capítulo 11. Proximamente
+* Capítulo 12. Proximamente
 * [Anexo A. HTML5](HTML.md)
 * [Anexo B. CSS](CSS.md) 
 * [Anexo C. CRUD con Laravel](crud.md) 

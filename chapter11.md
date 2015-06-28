@@ -18,13 +18,31 @@ Asociando los metodos de la siguiente forma:
 * **DELETE:** destroy.
 * **PATCH:** update.
 
+
+
 Los controladores nos ayudan a agrupar estas peticiones en una clase que se liga a las rutas, en el archivo ```app/Http/routes.php```, para esto usamos un tipo de ruta llamana resource:
 
 ```
 Route::resource('pasteles', 'PastelesController');
 ```
 
-Esta ruta nos creara un grupo de rutas de recursos con las peticiones que estas mencionadas arriba: **index, create, show, edit, store, update, destroy, update**. Estas son las operaciones mas usadas en una clase y para no tener que crear una ruta para cada metodo es que Laravel agrupa todo esto con una ruta de tipo resource que se liga a un controldor.
+Esta ruta nos creara un grupo de rutas de recursos con las peticiones que estas mencionadas arriba: **index, create, show, edit, store, update, destroy**. Estas son las operaciones mas usadas en una clase y para no tener que crear una ruta para cada metodo es que Laravel agrupa todo esto con una ruta de tipo resource que se liga a un controlador.
+
+Estos metodos significan:
+
+* index: Es el metodo inicial de las rutas resource, usualmente lo usamos para mostrar una vista como pagina principal que puede contener un catalogo o resumen de la informacion del modelo al cual pertenece o bien no mostrar informacion y solo tener la funcion de pagina de inicio.
+
+* create: Este metodo lo podemos usar para direccionar el sistema a la vista donde se van a recolectar los datos(probablemente con un formulario) para despues almacenarlos en un registro nuevo, usualmente redirige al index.
+
+* show: Aqui podemos hacer unna consulta de un elemento de la base de datos o de todos los elementos o registros por medio del modelo para realizar una descripcion.
+
+* edit: Este metodo es similar al de **create** porque lo podemos usar para mostrar una vista que recolecta los datos pero a diferencia de create es con el fin de actualizar un registro.
+
+* store: Aqui es donde se actualiza un registro en especifico que proviene del metodo create y normalmente redirige al index.
+
+* update: Al igual que el store, solo que en vez de provenir de create proviene de **edit** y en vez de crear un nuevo registro, busca un existente y lo modifica, tambien suele redirigir al index.
+
+* destroy: En este metodo usualmente se destruye o elimina un registro y la peticion puede provenir de donde sea siempre y cuando sea llamado con el metodo **DELETE**, despues puede redirigir al index o a otro sitio dependiendo si logro eliminar o no.
 
 Ahora esto no quiere decir que un controlador necesariamente debe ejecutar estas peticiones obligatoriamente, podemos omitirlas o incluso agregar mas.
 

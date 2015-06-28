@@ -107,6 +107,10 @@ Podemos definir diferentes el formato del texto como: negrita, cursiva, subrayad
 | `<option>`    | Define una opción en una lista desplegable|
 | `<label>`     | Define una etiqueta para un input|
 
+##Atributos de los formularios 
+
+* Seccion en desarrollo.
+
 # Tablas
  Ejemplo de una tabla básica:
 
