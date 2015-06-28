@@ -180,7 +180,7 @@ Este metodo es donde despues de haber entrado a **create** se reciben los datos 
     }
 ```
 
-En la funcion estamos creando una instancia de un nuevo Pastel y asignando los atributos de la clase que se llaman igual que los campos de la BD los valores del formulario con la variable request y el metodo ```input('name');``` que recibe como parametro el nombre del campo del formulario, para mas detalle revise la seccion del [Anexo A de HTML](HTML.md) que habla sobre los atributos de los formularios.
+En la funcion estamos creando una instancia de un nuevo Pastel y asignando los atributos de la clase que se llaman igual que los campos de la BD los valores del formulario con la variable request y el metodo ```input('name');``` que recibe como parametro el nombre del campo del formulario, para mas detalle revise la seccion del [Anexo A de HTML](../anexos/HTML.md) que habla sobre los atributos de los formularios.
 
 Despues de asignar los valores de la peticion a la variable ```$pastel```, se usa el metodo ```save();``` para que el modelo se encargue de guardar los datos en la BD y finalmente redireccionar al index con los metodos encadenados: ```redirect()->route('pasteles.index');```.
 
@@ -225,11 +225,84 @@ resources/
 			partials/
 				fields.blade.php
 				table.blade.php
+            create.blade.php
+            edit.blade.php
 			index.blade.php
-			create.blade.php
-			edit.blade.php
 ```
 
 Usaremos el **template** por defecto de Laravel llamado ```app.blade.php``` que fuimos modificando durante el curso por lo cual solo deberemos crear los archivos restantes.
+
+Ahora en el archivo **app.blade.php** vamos a modificarlo para que el contenido este mejor acomodado usando [Bootstrap](http://getbootstrap.com/css/) y vamos  a agregar los estilos y scripts para quela tabla donde vamos a mostrar el contenido funcione como un [DataTable](https://www.datatables.net/), dejando el archivo app de la siguiente forma:
+
+###Template App
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Laravel</title>
+    @section('styles_laravel')
+    {!! Html::style('assets/css/bootstrap.css') !!}
+    {!! Html::style('assets/css/datatable-bootstrap.css') !!}
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+    @show
+    @yield('my_styles')
+</head>
+<body>
+    @include('partials.layout.navbar')
+    @include('partials.layout.errors')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                @yield('content')
+            </div>
+        </div>
+    </div>
+    <!-- Scripts -->    
+    {!! Html::script('assets/js/jquery.js') !!}
+    {!! Html::script('assets/js/jquery.dataTables.js') !!}
+    {!! Html::script('assets/js/bootstrap.min.js') !!}
+    {!! Html::script('assets/js/datatable-bootstrap.js') !!}
+    <script>
+        $(document).ready(function(){
+            $('#MyTable').dataTable();
+        });
+    </script>
+
+    @yield('my_scripts')
+</body>
+</html>
+```
+
+Los cambios mas notorios que podemos observar es que el **@yield('content')** se metio dentro de una columna con un offset, eso dentro de una fila y todo dentro de un contenedor. Asi nuestro contenido no lo vamos a tener todo pegado a la izquierda de nuestro navegador.
+
+**Nota**: para poder hacer esto soN necesarios los archivos que se incluyen con blade, si no los agregan la tabla se vera mas sencilla pero esto no quiere decir que no va a funcionar, ya solo es cuestion de estilo, si quieren obtener los archivos dejamos los links a continuacion para que los descarguen y los guarden dentro de la carpeta respectiva, es decir los **CSS** en ```public/assets/css/``` y los **JS** dentro de ```public/assets/js/```:
+
+* Estilos para el DataTable: [datatable-bootstrap.css](../material/css/datatable-bootstrap.css).
+
+* Archivo JQuery: [jquery.js](../material/js/jquery.js).
+
+* Archivo JQuery para DataTable: [jquery.dataTables.js](../material/js/jquery.dataTables.js).
+
+* Archivo JQuery para DataTable de bootstrap: [datatable-bootstrap.js](../material/js/datatable-bootstrap.js).
+
+###Vista Index
+
+Esta vista se refiere al archivo **index.blade.php** dentro de la carpeta ```resources/views/pasteles/```, aqui vamos a mostrar la tabla y un boton para crear nuevos pasteles. Ahora bien para esto debemos tener nuestro **partial** de la tabla, mas adelante lo vamos a mostrar pero por el momento el archivo index quedaria de la siguiente forma:
+
+```
+@extends('app')
+
+@section('content') 
+    <a class="btn btn-success pull-right" href="{{ url('/pasteles/create') }}" role="button">Nuevo pastel</a>
+    @include('pasteles.partials.table')
+@endsection
+```
+
+Recuerden que gracias a blade nuestras vistas quedan de tamaños pequeños mas faciles de entender, aqui solo estamos heredando la plantilla **app** y definiendo la seccion **content** con un link que le daremos estilo de boton con la ruta para mostrar la vista de crear pasteles, ademas de importar nuestra tabla, el archivo partial lo definiremos ahora.
 
 ###**Contenido incompleto, lo sentimos proximamente se completara la seccion**
