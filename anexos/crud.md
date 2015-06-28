@@ -136,7 +136,7 @@ Con esto ya tendremos nuestro controlador(aun vacio) y nuestras rutas del sistem
 	php artisan route:list
 ```
 
-Ahora vamos a terminar de llenar nuestro controlador, debemos importar la clase Pastel a nuestro controlador para poder hacer uso del Modelo y asi trabajar con la base de datos, esto con la ayuda de [Eloquent](capitulos/chapter9.md), como vimos durante el curso para crear un nuevo registro con Eloquent basta con definir una variable de un **new** Modelo, en este caso **Pastel**, segun se describe en el [capitulo 11](capitulos/chapter11.md) los metodos responden a una ruta en especifico de la ruta resoure que agregamos en **routes.php**, para este caso vamos a definir cada uno de ellos en orden:
+Ahora vamos a terminar de llenar nuestro controlador, debemos importar la clase Pastel a nuestro controlador para poder hacer uso del Modelo y asi trabajar con la base de datos, esto con la ayuda de [Eloquent](../capitulos/chapter7.md), como vimos durante el curso para crear un nuevo registro con Eloquent basta con definir una variable de un **new** Modelo, en este caso **Pastel**, segun se describe en el [capitulo 11](../capitulos/chapter11.md) los metodos responden a una ruta en especifico de la ruta resoure que agregamos en **routes.php**, para este caso vamos a definir cada uno de ellos en orden:
 
 ####Index - Pagina de Inicio
 
@@ -150,7 +150,7 @@ Cuando entramos a una pagina principal de administracion se pueden ver en ocasio
     }
 ```
 
-Eloquent nos facilita mucho las consultas a la BD y hace que sea portable nuestro codigo, en el metodo decimos que seleccione todos los pasteles y os envie a una vista llama **index** ubicada en la carpeta ```resoures/views/pasteles/```, como vimmos en el [capitulo 10](chapter10.md) las rutas en blade cambian la **/**(diagonal) por un **.**(punto), la funcion ```view('pasteles.index');``` toma como carpeta raiz a ```resources/views/``` por lo que no tenemos la necesidad de agregarlo en la ruta. Ademas se esta concatenando el metodo ```with('nombre', $var);``` que como **primer** parametro pide el nombre con el cual se va a poder usar una variable del lado de la vista, y como **segundo** parametro recibe la variable que se va a mandar a la vista.
+Eloquent nos facilita mucho las consultas a la BD y hace que sea portable nuestro codigo, en el metodo decimos que seleccione todos los pasteles y os envie a una vista llama **index** ubicada en la carpeta ```resoures/views/pasteles/```, como vimmos en el [capitulo 10](../capitulos/chapter10.md) las rutas en blade cambian la **/**(diagonal) por un **.**(punto), la funcion ```view('pasteles.index');``` toma como carpeta raiz a ```resources/views/``` por lo que no tenemos la necesidad de agregarlo en la ruta. Ademas se esta concatenando el metodo ```with('nombre', $var);``` que como **primer** parametro pide el nombre con el cual se va a poder usar una variable del lado de la vista, y como **segundo** parametro recibe la variable que se va a mandar a la vista.
 
 ####Create - Pagina de registro
 
