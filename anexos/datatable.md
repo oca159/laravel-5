@@ -94,7 +94,7 @@ $(document).ready(function() {
 ## Ocupando un dataset en Javacript
 Un arreglo de arreglos en Javascript puede ser el dataset de un DataTable.
 
-* Javascript del [dataset](../material/txt/javacript.txt)
+* Javascript del [dataset](../material/txt/javascript.txt)
 
 Una vez definido el dataset bastará con ejecutar la siguiente función para crear una table en un div con id="demo" en nuestro HTML.
 
@@ -191,4 +191,4 @@ Para ocuparlo tenemos que hacer referencia en la función de la creación del Da
 Podemos ocupar el campo de texto de búsqueda del DataTable y buscar bajo diferentes críterios separando por un espacio en blanco.
 
 Ejemplo:
-* Para buscar un administrador cuyo nombre empiece con la letra O y su teléfono sea extensión 228, podemos poner `administrador O 228` 
+* Para buscar un administrador cuyo nombre empiece con la letra O y su teléfono sea extensión 228, podemos poner `administrador O 228`
