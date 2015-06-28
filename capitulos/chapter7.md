@@ -16,7 +16,7 @@ Estas convenciones nos ayudan a detectar automaticamente las tablas, por ejemplo
 
 Y esto aplica para cuando queremos crear nuestros modelos, si tenemos una tabla en la base de datos con la que queremos trabajar que se llama **user_profiles**, vemos que se encuentra con las convenciones para tablas de bases de datos (plural y underscore), entonces el modelo para esta tabla cambiando las convenciones seria: **UserProfile** (singular y UpperCamelCase).
 
-Retomando el ejemplo que vimos en el [Capítulo 5](chapter5.md) sobre la migracion de pasteles, crearemos ahora un modelo para poder trabajar con esa tabla, el cual recibira el nombre de **Pastel** y el comando para poder crear nuestro modelos es:
+Retomando el ejemplo que vimos en el [Capítulo 6](chapter6.md) sobre la migracion de pasteles, crearemos ahora un modelo para poder trabajar con esa tabla, el cual recibira el nombre de **Pastel** y el comando para poder crear nuestro modelos es:
 
 ```shell
 php artisan make:model Pastel
