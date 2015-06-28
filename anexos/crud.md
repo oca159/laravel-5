@@ -4,7 +4,7 @@ Este anexo del libro de Laravel 5 esta pensado para resumir el contenido de una 
 
 Se explicara el proceso para dar altas, bajas, cambios y consultas de la tabla **pasteles** o [CRUD](https://es.wikipedia.org/wiki/CRUD) que significa **C**reate, **R**ead, **U**pdate and **D**elete por sus siglas en ingles.
 
-Primero retomaremos las [migraciones y los seeders](chapter6.md), creando la migracion y un pequeño seeder para poblar nuestra BD.
+Primero retomaremos las [migraciones y los seeders](../capitulos/chapter6.md), creando la migracion y un pequeño seeder para poblar nuestra BD.
 
 Para crear la migracion con la plantilla basica usaremos el comando
 
