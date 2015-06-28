@@ -15,3 +15,4 @@
 * [Anexo A. HTML5](anexos/HTML.md)
 * [Anexo B. CSS](anexos/CSS.md)
 * [Anexo C. CRUD con Laravel](anexos/crud.md)
+* [Anexo D. Componente Datatable](anexos/datatable.md)
