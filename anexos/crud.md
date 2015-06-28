@@ -93,7 +93,7 @@ Con esto ya tendremos la estructura de la tabla y un seeder para poblar, con est
 	php artisan migrate --seed
 ```
 
-Ahora vamos a pasar a crear el [Modelo](capitulos/chapter9.md), el cual nos va a servir para mapear la tabla de la BD a una clase de Laravel como lo vimos en el [capitulo 9](capitulos/chapter9.md). Vamos a usar el comando:
+Ahora vamos a pasar a crear el [Modelo](../capitulos/chapter9.md), el cual nos va a servir para mapear la tabla de la BD a una clase de Laravel como lo vimos en el [capítulo 9](../capitulos/chapter9.md). Vamos a usar el comando:
 
 ```
 	php artisan make:model Pastel
