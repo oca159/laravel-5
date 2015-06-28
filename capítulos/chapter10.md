@@ -1,6 +1,6 @@
 #Vistas y Blade
 
-Las vistas en Laravel son la parte publica que el usuario de nuestro sistema va a poder ver, se escriben en HTML junto con un motor de plantillas llamado **Blade** que veremos mas adelante. Las vistas se encuentran ubicadas en la carpeta ```resources/views/``` y Laravel por defecto trabaja con la idea de que tenemos que escribir la menor cantidad de codigo repetido, modularizar nuestro codigo en donde mas se pueda, y si esto lo aplicamos en nuestros modelos, controladores y demas partes de nuestro proyecto.
+Las vistas en Laravel son la parte publica que el usuario de nuestro sistema va a poder ver, se escriben en HTML junto con un motor de plantillas llamado **Blade** que veremos mas adelante. Las vistas se encuentran ubicadas en la carpeta ```resources/views/``` y Laravel por defecto trabaja con la idea de que tenemos que escribir la menor cantidad de código repetido, modularizar nuestro código en donde mas se pueda, y si esto lo aplicamos en nuestros modelos, controladores y demás partes de nuestro proyecto.
 
 
 Entonces, **¿Por que no hacerlo tambien en las vistas?**, pues bien, Laravel usa unos archivos que se llaman plantillas o **templates** que suelen ser nuestros archivos principales, que tienen los segmentos de codigo que se repiten en mas de una vista, como por ejemplo la barra de navegacion, un menu de opciones, la estructura del acomodo de nuestro proyecto, etc. y como deben de estar practicamente presentes en todos lados, no tiene sentido estarlos repitiendo en todas las vistas. Por defecto Laravel contiene un **template** llamado **app.blade.php**, usualmente los **templates** contienen el head del HTML, las ligas del [CSS](https://es.wikipedia.org/wiki/Hoja_de_estilos_en_cascada) del sistema y una seccion exclusiva para los archivos Javascript.
@@ -126,7 +126,7 @@ Un template es una vista como las demas, simplemente que dentro de ella se usan 
 
 ```
 @yield('nombre_seccion')
-``` 
+```
 
 Para declarar un area que se definira en otra vista o bien la sentencia:
 
