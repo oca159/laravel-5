@@ -318,6 +318,8 @@ Los cambios mas notorios que podemos observar es que el **@yield('content')** se
 
 * Archivo JQuery para DataTable de bootstrap: [datatable-bootstrap.js](../material/js/datatable-bootstrap.js).
 
+**Nota**: tambien les invito a ver el [anexo de DataTable](../anexos/datatable.md) para mayor informacion.
+
 ###Vista Index
 
 Esta vista se refiere al archivo **index.blade.php** dentro de la carpeta ```resources/views/pasteles/```, aqui vamos a mostrar la tabla y un boton para crear nuevos pasteles. Ahora bien para esto debemos tener nuestro **partial** de la tabla, mas adelante lo vamos a mostrar pero por el momento el archivo index quedaria de la siguiente forma:
