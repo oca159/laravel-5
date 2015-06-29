@@ -12,6 +12,7 @@
 * [Capítulo 9. Enrutamiento básico](capitulos/chapter9.md)
 * [Capítulo 10. Vistas y motor de plantillas Blade](capitulos/chapter10.md)
 * [Capítulo 11. Controladores](capitulos/chapter11.md)
+* [Capítulo 12. Validaciones en Laravel](capitulos/chapter12.md)
 * [Anexo A. HTML5](anexos/HTML.md)
 * [Anexo B. CSS](anexos/CSS.md)
 * [Anexo C. CRUD con Laravel](anexos/crud.md)
