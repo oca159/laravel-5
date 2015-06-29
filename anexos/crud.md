@@ -190,25 +190,53 @@ Despues de asignar los valores de la peticion a la variable ```$pastel```, se us
 
 ####Edit - Pagina de edicion
 
-* Lo sentimos, seccion en desarrollo.
+La funcion de edit es similar a la de create pues solo muestra una vista, con una pequeña diferencia, la cual es que se va a buscar el pastel que se quiere editar y se va a mandar a la vista, esto es obio pues debemos poder ver la informacion que vamos a editar. La funcion quedaria de la siguiente forma:
+
+```
+    public function edit($id)
+    {
+        $pastel = Pastel::find($id);
+        return view('pasteles.edit')->with('pastel',$pastel);
+    }
+```
+
+Es muy claro, en una variable se guarda el pastel, gracias al modelo esto se soluciona facilmente con el metodo ```find()```, el id del pastel se manda en la url, ahora bien si esto es preocupante puesto que el id se ve directamente en la URL recordemos que esto no modifica aun, solo nos manda a la pagina que va a poder hacer una nueva peticion para actualizar.
 
 ####Update - Funcion de actualizacion
 
-* Lo sentimos, seccion en desarrollo.
+Bien, despues de entrar en la pagina de edit vamos a poder editar la informacion y regresarla al controlador para que efectue los cambios, dentro del metodo **update** vamos a recuperar nuevamente el Pastel por medio de su id que tambien va en la url y se recibe como parametro de la funcion, ademas vamos a agregar otro parametro que sera el Request al igual que en la funcion **create** para recuperar la informacion del lado del cliente en el controlador, dejando la funcion de esta forma:
+
+```
+    public function update(Request $request, $id)
+    {
+        $pastel = Pastel::find($id);
+        $pastel->nombre = $request->input('nombre');
+        $pastel->sabor  = $request->input('sabor');
+        $pastel->save();
+        return redirect()->route('pasteles.index');
+    }
+```
+
+Esta funcion es similar a la de create lo unico que cambia es que en vez de crear un nuevo pastel vamos a recuperar uno existente y cambiar sus atributos.
 
 ####Destroy - Funcion de borrado
 
 Este metodo tiene la funcion de eliminar el registro de la BD, pero para efectuarlo tenemos dos opciones, la **primer** forma: crear una variable ```$pastel``` y despues usar el metodo ```delete()``` de Eloquent. o bien la **segunda**: directamente del modelo usar el metodo de Eloquent ```destroy($id)```, que se encarga de directamente buscar y eliminar el registro, finalmente vamos a redirigir al index, el metodo al final quedara de la siguiente forma:
 
 ```
+    // Esta es la primer opcion
 	public function destroy($id)
     {
         $pastel = Pastel::find($id);
         $pastel->delete();
+        return redirect()->route('pasteles.index');
+    }
 
+    // Esta es la segunda opcion
+    public function destroy($id)
+    {
         Pastel::destroy($id);
         return redirect()->route('pasteles.index');
-
     }
 ```
 
@@ -305,4 +333,145 @@ Esta vista se refiere al archivo **index.blade.php** dentro de la carpeta ```res
 
 Recuerden que gracias a blade nuestras vistas quedan de tamaños pequeños mas faciles de entender, aqui solo estamos heredando la plantilla **app** y definiendo la seccion **content** con un link que le daremos estilo de boton con la ruta para mostrar la vista de crear pasteles, ademas de importar nuestra tabla, el archivo partial lo definiremos ahora.
 
-###**Contenido incompleto, lo sentimos proximamente se completara la seccion**
+###Partials: table y fields
+
+####Table
+
+Estos archivos los trabajaremos en partials por comodidad y porque son componentes de un sistema Web que suelen repetirse constantemente, empezaremos por el table.
+
+Primero recordemos un poco del pasado, en nuestro controlador en el metodo index definimos que retornaria la vista index junto con una variable llamada ```$pasteles``` que conteneria todos los pasteles del sistema, ahora bien esos pasteles los vamos a vaciar en la tabla pues si bien no especificamos que esa variable va a llegar al partial **table** como lo estamos incluyendo en el index tambien comparte las variables que tenga index, entonces el envio puede verse de la siguiente manera:
+
+![](../images/envio_variable.png)
+
+Entonces vamos a usar un foreach con **blade**, para llenar el contenido de la tabla con los atributos de los pasteles, dejando el archivo asi:
+
+```
+<h1 class="text-primary">Control de Pasteles</h1>
+
+<table class="table table-bordered" id="MyTable">
+  <thead>
+    <tr>
+        <th class="text-center">ID</th>
+        <th class="text-center">Nombre</th>
+        <th class="text-center">Sabor</th>
+        <th class="text-center">Fecha</th>
+        <th class="text-center">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach($pasteles as $pastel)
+        <tr>
+            <td class="text-center">{{ $pastel->id }}</td>
+            <td class="text-center">{{ $pastel->nombre }}</td>
+            <td class="text-center">{{ $pastel->sabor }}</td>
+        <td class="text-center">{{ $pastel->created_at }}</td>
+        
+        {!! Form::open(['route' => ['pasteles.destroy', $pastel->id], 'method' => 'DELETE']) !!}
+
+            <td class="text-center">
+                <button type="submit" class="btn btn-danger btn-xs">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+                <a href="{{ url('/pasteles/'.$pastel->id.'/edit') }}" class="btn btn-info btn-xs">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                </a>
+            </td>
+        
+        {!! Form::close() !!}
+
+        </tr>
+    @endforeach
+  </tbody>
+  <tfoot>
+    <tr>
+        <th class="text-center">ID</th>
+        <th class="text-center">Nombre</th>
+        <th class="text-center">Sabor</th>
+        <th class="text-center">Fecha</th>
+        <th class="text-center">Acciones</th>
+    </tr>
+  </tfoot>
+</table>
+```
+
+La estructura de la tabla la pueden ver en [este link](http://www.w3schools.com/html/html_tables.asp), pero lo importante esta dentro del ```<tbody>```, en donde con **BLADE** vamos a usar un foreach diciendo que para cada pastel dentro de la variable **$pasteles** que llego del controlador se van a vaciar sus datos dentro de la fila de la tabla, primero vamos a agregar su id, nombre y fecha de creacion, pero se va a agregar una columna de acciones que contenga dos botones, uno para eliminar ese registro y otro para editarlo, el boton de eliminar debe ser de tipo submit para enviar la peticion **DELETE** y para esto es que se abre un formulario con la clase **Form::** de Laravel, para que asi que de sintaxis mas legible, agregamos los campos necesarios que son la ruta y el metodo del formulario; para el boton de edit basta con un link ```<a>``` que con la funcion ```url()``` de Laravel la vamos a dirigir con el ID de cada pastel.
+
+**Nota**: Bootstrap nos permite tener a disposicion iconos para que los botones de nuestras acciones se vean mas profesionales, por lo cual es lo que se agrega el tag ```<span>```, para mas informacion ir a la pagina oficial de [Bootstrap](http://getbootstrap.com).
+
+Con esto debemos ser capaces de poder ver ahora nuestra tabla como un DataTable(en caso de haber agregado lo necesario) llena con la informacion de pasteles:
+
+![](../images/index_pasteles.png)
+
+####Fields
+
+Ahora vamos a crear un partials con los campos que va a requerir nuestro proyecto, si bien sabemos es necesario pedir al usuario el nombre y sabor del pastel, pero la fecha de creacion y ultima actualizacion son campos que Laravel pone automaticamente cuando se ejecuta el metodo ```save()``` en el controlador, por lo cual nuestro partial solo debera tener dos campos de entrada y un boton para enviar la solicitud.
+
+Entonces para este archivo solo vamos a agregar como su nombre lo indica los campos de entrada para un paste, dejandolo de la siguiente forma:
+
+```
+<div class="form-group">
+    {!! Form::label('nombre', 'Nombre', ['for' => 'nombre'] ) !!}
+    {!! Form::text('nombre', null , ['class' => 'form-control', 'id' => 'nombre', 'placeholder' => 'Escribe el nombre del pastel...' ]  ) !!}
+</div>
+
+<div class="form-group">
+    {!! Form::label('sabor', 'Sabor', ['for' => 'sabor'] ) !!}
+    <select name="sabor" class="form-control">
+        <option value="" disabled selected>Elige un sabor...</option>
+        <option value="chocolate">Chocolate</option>
+        <option value="vainilla">Vainilla</option>
+        <option value="cheesecake">Cheesecake</option>
+    </select>
+</div>
+```
+
+Si bien la clase ```Form::``` no se ha explicado detalladamente dejo el [link](http://laravel.com/docs/4.2/html) de la documentacion oficial de Laravel, aunque se encuentra en su version 4.2 es debido a que para las versiones mas actuales no se encuentra explicada, pero sigue siendo completamente compatible con Laravel 5 y 5.1.
+
+Con este partial vamos a poder llamar los campos de entrada para crear o editar un pastel.
+
+###Vista Create
+
+En esta vista al igual que el index quedara muy corta:
+
+```
+@extends('app')
+
+@section('content')
+    {!! Form::open([ 'route' => 'pasteles.store', 'method' => 'POST']) !!}
+        @include('pasteles.partials.fields')
+        <button type="submit" class="btn btn-success btn-block">Guardar</button>
+    {!! Form::close() !!}
+@endsection
+```
+
+Extendemos del template **app**, definimos el contenido abriendo un formulario pero como se trata de un almacenamiento el metodo se va a trabajar con **store** y **POST**, dentro vamos a incluir el partial de **fields** para tener los campos de texto, el menu de opciones y un boton de tipo submit para mandar la peticion.
+
+Deberia quedar un resultado similar a este:
+
+![](../images/vista_create.png)
+
+###Vista Edit
+
+Al tener ya listos nuestros archivos HTML la vista de edit se crea de la misma forma que la de create con la diferencia de que en vez de abrir un formulario vamos a abrir un modelo, es deir vamos a abrir el objeto que se envio del controlador a la vista para poder editar los campos, como observacion podran notar cuando lo ejecuten en el navegador que un select no se asigna automaticamente en valor anterior, por el momento vamos a ver como quedaria la vista:
+
+```
+@extends('app')
+
+@section('content')
+    <h4 class="text-center">Editar Pastel: {{ $pastel->nombre  }}</h4>
+    {!! Form::model($pastel, [ 'route' => ['pasteles.update', $pastel], 'method' => 'PUT']) !!}
+        @include('pasteles.partials.fields')
+        <button type="submit" class="btn btn-success btn-block">Guardar cambios</button>
+    {!! Form::close() !!}
+@endsection
+```
+
+Al igual que las demas vistas se esta heredadndo de **app** y se agrega un titulo para saber que pastel se esta editando, pero el ```Form::model()``` abre nuestra variable ```$pastel``` que enviamos desde el controlador y crea un formulario lleno a partir de los valores del modelo, claro que esto solo para los campos que coincidan con los nombres de los atributos del modelo.
+
+El resultado seria algo similar a esto:
+
+![](../images/vista_edit.png)
+
+Y con esto quedarian nuestras vistas del sistema terminadas y el CRUD basico de los **Pasteles** finalizado tambien, para mas informacion pueden retomar los capitulos de este libro para analizar las diferentes opciones que tenemos para resolver este ejemplo pues esta es solo una propuesta, no una solucion definitiva.
+
+**nota**: La seccion de show no se ha contemplado para este anexo con una vista, disculpen las molestias.
