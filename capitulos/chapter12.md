@@ -165,6 +165,42 @@ public function rules()
    }
 ```
 
+Al final el archivo CrearPastelesRequest deberá verse así:
+```php
+<?php
+
+namespace Curso\Http\Requests;
+
+use Curso\Http\Requests\Request;
+
+class CrearPastelesRequest extends Request
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return false;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'nombre' => 'required|string|size:60',
+            'sabor' => 'required|in:chocolate,vainilla,cheesecake'
+        ];
+    }
+}
+
+```
+
 De igual forma crearemos el Request para el método update de PastelesController.
 
 ```php
