@@ -297,7 +297,9 @@ class PastelesController extends Controller
      */
     public function store(CrearPastelesRequest $request)
     {
-        $pastel = Pastel::create($request->all());
+        $pastel = new Pastel;
+        $pastel->sabor = $request->input('sabor');
+        $pastel->nombre = $request->input('nombre');
         return redirect()->route('pasteles.index');
     }
 
