@@ -128,7 +128,7 @@ Un template es una vista como las demas, simplemente que dentro de ella se usan 
 @yield('nombre_seccion')
 ```
 
-Para declarar un area que se definira en otra vista o bien la sentencia:
+Para declarar una seccion que se va a rellenar en otro lugar:
 
 ```
 @section('nombre_seccion')
@@ -154,7 +154,7 @@ El template **app** por defecto tiene definida un **yield** llamado **content** 
 @stop
 ```
 
-Ahora nuestra vista ya no tiene el encabezado HTML normal ni las etiquetas **<body>** ni **<html>**, sino que estamos diciendo que vamos a extender del template **app** y que el yield **content** lo vamos a sustituir por nuestro propio contenido, cabe mencionar que aunque en el template se uso la sentencia **yield('content')**, al momento de sustituirla la vamos a cambiar por **section('content')**, por lo cual en todas las vistas hijas del template solo se va a definir secciones y el fin de esa seccion se va a declarar con la entencia ```@stop```.
+Ahora nuestra vista ya no tiene el encabezado HTML normal ni las etiquetas ```<body>``` ni ```<html>```, sino que estamos diciendo que vamos a extender del template **app** y que el yield **content** lo vamos a sustituir por nuestro propio contenido, cabe mencionar que aunque en el template se uso la sentencia **yield('content')**, al momento de sustituirla la vamos a cambiar por **section('content')**, por lo cual en todas las vistas hijas del template solo se va a definir secciones y el fin de esa seccion se va a declarar con la entencia ```@stop```.
 
 Ahora el resultado seria algo parecido a esto:
 

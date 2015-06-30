@@ -66,7 +66,7 @@ Route::get('home', 'HomeController@index');
 
 ### Parametros en las rutas de tipo get
 
-Los parámetros de las rutas pueden ser utilziados para introducir valores de relleno en tus definiciones de ruta. Esto creará un patrón sobre el cual podamos recoger segmentos de la URI y pasarlos al gestor de la lógica de la aplicación.
+Los parámetros de las rutas pueden ser utilizados para introducir valores de relleno en tus definiciones de ruta. Esto creará un patrón sobre el cual podamos recoger segmentos de la URI y pasarlos al gestor de la lógica de la aplicación.
 Para dejarlo un poco más claro pondremos unos ejemplos.
 
 ![](../images/rutas-parametros.png)
