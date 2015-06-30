@@ -159,7 +159,7 @@ Posteriormente en el método **rules()** agregaremos las reglas de validación d
 public function rules()
    {
        return [
-           'nombre' => 'required|string|size:60',
+           'nombre' => 'required|string|max:60',
            'sabor' => 'required|in:chocolate,vainilla,cheesecake'
        ];
    }
@@ -182,7 +182,7 @@ class CrearPastelesRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -193,7 +193,7 @@ class CrearPastelesRequest extends Request
     public function rules()
     {
         return [
-            'nombre' => 'required|string|size:60',
+            'nombre' => 'required|string|max:60',
             'sabor' => 'required|in:chocolate,vainilla,cheesecake'
         ];
     }
@@ -295,9 +295,9 @@ class PastelesController extends Controller
      *
      * @return Response
      */
-    public function store(CrearClienteRequest $request)
+    public function store(CrearPastelesRequest $request)
     {
-        $pastel = Pastel::create($request->all);
+        $pastel = Pastel::create($request->all());
         return redirect()->route('pasteles.index');
     }
 
@@ -330,7 +330,7 @@ class PastelesController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(EditarClienteRequest $request, $id)
+    public function update(EditarPastelesRequest $request, $id)
     {
         $pastel = Pastel::find($id);
         $pastel->fill($request->all());
