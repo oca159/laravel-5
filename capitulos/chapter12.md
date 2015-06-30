@@ -336,7 +336,8 @@ class PastelesController extends Controller
     public function update(EditarPastelesRequest $request, $id)
     {
         $pastel = Pastel::find($id);
-        $pastel->fill($request->all());
+        $pastel->sabor = $request->input('sabor');
+        $pastel->nombre = $request->input('nombre');
         $pastel->save();
         return redirect()->route('pasteles.index');
     }
