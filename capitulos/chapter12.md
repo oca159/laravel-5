@@ -300,6 +300,7 @@ class PastelesController extends Controller
         $pastel = new Pastel;
         $pastel->sabor = $request->input('sabor');
         $pastel->nombre = $request->input('nombre');
+        $pastel->save();
         return redirect()->route('pasteles.index');
     }
 
