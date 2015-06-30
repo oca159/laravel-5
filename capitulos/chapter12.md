@@ -252,6 +252,33 @@ use Curso\Http\Requests\CrearPastelesRequest;
 use Curso\Http\Requests\EditarPastelesRequest;
 ```
 
+En el modelo Pastel agregaremos una propiedad $fillable para indicar que atributos de la tabla pasteles podrán ser ocupados con el método
+`$request->all()`.
+
+El modelo pasteles quedaría así:
+```php
+<?php
+
+namespace Curso;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Pastel extends Model
+{
+    protected $table = 'pasteles';
+    protected $fillable = ['nombre','sabor'];
+
+    public function scopeSabor($query, $sabor){
+        return $query->where('sabor',$sabor);
+    }
+
+    public function scopeId($query, $id){
+        return $query->where('id',$id);
+    }
+}
+
+```
+
 Los métodos store y update recibirán como parametro un objeto Request para aplicar las reglas de validación, al final el controlador PastelesController debe tener el siguiente aspecto:
 ```php
 <?php
@@ -297,10 +324,7 @@ class PastelesController extends Controller
      */
     public function store(CrearPastelesRequest $request)
     {
-        $pastel = new Pastel;
-        $pastel->sabor = $request->input('sabor');
-        $pastel->nombre = $request->input('nombre');
-        $pastel->save();
+        $pastel = Pastel::create($request->all());
         return redirect()->route('pasteles.index');
     }
 
@@ -336,8 +360,7 @@ class PastelesController extends Controller
     public function update(EditarPastelesRequest $request, $id)
     {
         $pastel = Pastel::find($id);
-        $pastel->sabor = $request->input('sabor');
-        $pastel->nombre = $request->input('nombre');
+        $pastel->fill($request->all());
         $pastel->save();
         return redirect()->route('pasteles.index');
     }
