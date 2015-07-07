@@ -1,6 +1,6 @@
 #Middlewares
 
-En este punto tenemos debemos tener terminado nuestro CRUD para la clase Pasteles, en caso de no tenerlo terminado recomiendo ver el [Anexo C. CRUD con Laravel](../anexos/crud.md) para finalizarlo, ahora bien si ya podemos realizar las operaciones basicas no podemos pensar en llevar a un ambiente real o comercial un proyecto en este nivel. Aun si funciona correctamente no hemos contemplado todos los posibles casos o amenazas que se encuentran afuera en la Web, tales como son hackers, estafadores o fallas usuales de los usuarios finales. 
+En este punto debemos tener nuestro CRUD para la clase Pasteles, en caso de no tenerlo recomiendo ver el [Anexo C. CRUD con Laravel](../anexos/crud.md) para poder continuar. Ahora bien si ya podemos realizar las operaciones basicas no podemos pensar en llevar a un ambiente real o comercial un proyecto en este nivel. Aun si funciona correctamente no hemos contemplado todos los posibles casos o amenazas que se encuentran afuera en la Web, tales como son hackers, estafadores o incluso las fallas usuales de los usuarios finales. 
 
 Para solucionar esto Laravel utiliza los Middleware, que nos permiten proteger las rutas de accesos no autorizados, como su nombre lo indica (middle) se ubica en el **medio** de la peticion (Request), entonces si deseamos agregar un nuevo nivel de seguridad a nuestro sistema los Middleware son la respuesta.
 
