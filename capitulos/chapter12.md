@@ -95,7 +95,7 @@ Una vez hecho esto, debemos hacer referencia a los estilos y scripts desde nuest
 Los ejemplos sobre validaciones, notifiaciones, progressbar, etc los encontrarás en la página oficial de [Smoke](http://alfredobarron.github.io/smoke/index.html#/).
 
 ##Validación del lado del servidor (Request).
-Laravel permite validar los datos enviados por un formulario de forma muy sencilla ocupando un Mecanismo llamados "Requests". Veamos un ejemplo ocupando el controller PastelesController visto en el [Anexo C. CRUD con Laravel](../anexos/crud.md) para comprender su funcionamiento:
+Laravel permite validar los datos enviados por un formulario de forma muy sencilla ocupando un Mecanismo llamados "Requests". Veamos un ejemplo ocupando el controller PastelesController visto en el capítulo anterior, dandole uso a los métodos **store** y **update**, el funcionamiento y lógica puedes verlo en el [Anexo C. CRUD con Laravel](../anexos/crud.md) para comprender su funcionamiento:
 
 Lo primero que debemos hacer es crear un request para el método store de PastelesController ya que necesitamos validar que los datos enviados en el formulario para crear un nuevo pastel sean válidos.
 
@@ -279,7 +279,7 @@ class Pastel extends Model
 
 ```
 
-Los métodos store y update recibirán como parametro un objeto Request para aplicar las reglas de validación, al final el controlador PastelesController debe tener el siguiente aspecto:
+Los métodos store y update recibirán como parámetro un objeto Request para aplicar las reglas de validación, al final el controlador PastelesController debe tener el siguiente aspecto:
 ```php
 <?php
 
@@ -382,3 +382,4 @@ class PastelesController extends Controller
     }
 }
 ```
+Si te interesa ver el proceso con el cual se completaron los métodos te recomendamos ir al [Anexo C. CRUD con Laravel](../anexos/crud.md) para mayor información y así poder probar adecuadamente los Request.

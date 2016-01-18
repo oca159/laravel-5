@@ -10,6 +10,9 @@ Sin embargo, JSON no se inmuta con los espacios en blanco o saltos de linea entr
 JSON es un formato de transferencia de dato y no un lenguaje.
 
 Debemos tener siempre en cuenta que en el formato JSON las cadenas siempre van en comillas dobles, además, los elementos clave y valor debes estar separadas con dos puntos (:), y las parejas clave-valor por una coma (,).
+
+Por ejemplo:
+
 ```json
 { 
     "Frutas":[
@@ -33,11 +36,11 @@ Debemos tener siempre en cuenta que en el formato JSON las cadenas siempre van e
 ### Los tipos de valores aceptados por JSON
 Los tipos de valores que podemos encontrar en JSON son los siguientes:
 
-* Un número (entero o flotante)
-* Un string (entre comillas dobles)
-* Un booleano (true o false)
-* Un array (entre corchetes [] )
-* Un objeto (entre llaves {})
+* Numéricos (entero o flotante)
+* Strings o cadenas (entre comillas dobles)
+* Booleans (true o false)
+* Arrays o arreglos (entre corchetes [] )
+* Objetos (entre llaves {})
 * Null
 
 ### ¿Por qué aprender JSON?

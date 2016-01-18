@@ -1,6 +1,6 @@
 # Summary
 
-* [Introducción](README.md)
+* [Introducción](introduction.md)
 * [Capítulo 1. Instalación](capitulos/chapter1.md)
 * [Capítulo 2. PSR-4 y namespaces](capitulos/chapter2.md)
 * [Capítulo 3. Conexión con base de datos](capitulos/chapter3.md)

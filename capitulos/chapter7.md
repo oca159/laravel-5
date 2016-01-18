@@ -6,7 +6,7 @@ En Laravel podemos hacer uso de un [**ORM**](https://es.wikipedia.org/wiki/Mapeo
 
 Eloquent hace uso de los **Modelos** para recibir o enviar la información a la base de datos, para esto analizaremos el modelo que viene por defecto en Laravel, este es el modelo **User** que se ubica en la carpeta ```app/```, los modelos hacen uso de PSR-4 y namespaces, un modelo nos ayuda a definir que tabla, atributos se pueden llenar y que otros se deben mantener ocultos.
 
-Los modelos usan convenciones para que a Laravel se le facilite el trabajo y nos ahorre tanto lineas de codigo como tiempo para relacionar mas modelos, las cuales son:
+Los modelos usan convenciones para que a Laravel se le facilite el trabajo y nos ahorre tanto líneas de código como tiempo para relacionar más modelos, las cuales son:
 
 * El nombre de los modelos se escribe en singular, en contraste con las tablas de la BD que se escriben en plural.
 
@@ -26,11 +26,11 @@ Con esto se generara el archivo en donde ya se encuentra el modelo **User** en l
 ```php
 protected $table = 'pasteles';
 ```
-#####¿Pero no se suponia que Laravel identificaba automaticamente que tabla usar?
+#####¿Pero no se suponia que Laravel identificaba automáticamente que tabla usar?
 
 Si lo hace pero si cambiamos las convenciones del modelo **Pastel** el resultado seria **pastels** y nuestra tabla se llama **pasteles**, esto es un problema para nosotros por el hecho del uso del lenguaje español porque la conversion de singular a plural no es la misma que la forma en que se hace en ingles, debido a esto nos vemos forzados a definir el nombre de la tabla.
 
-Bien una vez creado nuestro modelo pasaremos a crear una ruta de tipo **get** en nuestro archivo ***routes.php*** que se vio en el [Capítulo 8](chapter9.md) sobre enrutamiento básico, que quedaria de la siguiente forma:
+Bien una vez creado nuestro modelo pasaremos a crear una ruta de tipo **get** en nuestro archivo ***routes.php***, posteriormente estudiaremos el enrutamiento básico en Laravel en el [Capítulo 9](chapter9.md), por el momento solo seguiremos el ejemplo, que quedaria de la siguiente forma:
 
 ```php
 Route::get('pruebasPastel', function(){
@@ -38,7 +38,7 @@ Route::get('pruebasPastel', function(){
 });
 ```
 
-Dentro de esta ruta de prueba vamos a usar nuestro modelo, pero como estamos usando la especificacion PSR-4 debemos incluir el namespace del modelo, que seria igual a esto:
+Dentro de esta ruta de prueba vamos a usar nuestro modelo, pero como estamos usando la especificacion PSR-4 debemos incluir el namespace del modelo al inicio del archivo, que seria igual a esto:
 
 ```php
 use Curso\Pastel;
@@ -46,7 +46,7 @@ use Curso\Pastel;
 
 Con esto estamos diciendo que incluya la clase **Pastel** que es nuestro modelo, y con esto podemos ya hacer consultas a nuestra BD y mapear a objetos PHP. En la [documentacion oficial](http://laravel.com/docs/5.0/eloquent) de Laravel podemos ver todas las opciones que nos permite **Eloquent**, unas de las instrucciones basicas de este son ***get()*** que nos regresa todos los registros de la BD y ***first()*** que nos regresa el primer registro de una seleccion.
 
-A su vez podemos unir esto a mas filtros de seleccion SQL, como por ejemplo seleccionar el primer pastel de vainilla, la sintaxis de Eloquent seria la siguiente:
+A su vez podemos unir esto a más filtros de seleccion SQL, como por ejemplo seleccionar el primer pastel de vainilla, la sintaxis de Eloquent seria la siguiente:
 
 ```php
 $pastel = Pastel::where('sabor','vainilla')->first();
@@ -86,14 +86,14 @@ Los scopes en la función se debe iniciar el nombre de la función con la palabr
 	});
 ```
 
-También podemos crear scopes dinamicos de la siguiente forma:
+También podemos crear scopes dinámicos de la siguiente forma:
 
 ```php
 	public function scopeSabor($query, $sabor){
     	return $query->where('sabor',$sabor);
     }
 ```
-Esto nos daria una función generica para obtener los pasteles de cierto sabor y su implementacion seria asi:
+Esto nos daria una función genérica para obtener los pasteles de cierto sabor y su implementación sería asi:
 
 ```php
 	Route::get('pruebasPastel', function(){

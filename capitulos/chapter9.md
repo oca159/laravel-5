@@ -19,6 +19,10 @@ Route::get('saludo', function () {
 });
 ```
 
+Lo que debería mostrar un mensaje similar a este:
+
+![]('../images/mensaje_bienvenido.png')
+
 ### Tipos de rutas por encabezado Http
 Las rutas están siempre declaradas usando la clase Route . Eso es lo que tenemos al principio, antes de :: . La parte get es el método que usamos para ‘capturar’ las peticiones que son realizadas usando el verbo ‘GET’ de HTTP hacia una URL concreta.
 
@@ -56,7 +60,7 @@ Route::get('/', function () {
 
 ```
 
-El método **view** dentro del closure recibe como parámetro el nombre de una vista sin la extensión. En el ejemplo de arriba la vista `welcome` se encuentra ubicada en **resources/views/welcome.blade.php** si escribimos `view('pasteles.lista_pasteles')` estamos indicando que regresará el archivo *lista_pasteles.blade.php* ubicado en **resources/views/pasteles/lista_pasteles.blade.php**.
+El método **view** dentro del closure recibe como parámetro el nombre de una vista sin la extensión. En el ejemplo de arriba la vista `welcome` se encuentra ubicada en **resources/views/welcome.blade.php** si escribimos `view('pasteles.lista_pasteles')` estamos indicando que regresará el archivo *lista_pasteles.blade.php* ubicado en **resources/views/pasteles/lista_pasteles.blade.php**. Las vistas las veremos en el [capítulo 10]('chapter10.md').
 
 Las rutas pueden ser relacionadas con métodos de un controlador. En el siguiente ejemplo, la ruta http://localhost:8000/home regresará lo que indiquemos en el método index del **Controller** HomeController.
 

@@ -2,7 +2,7 @@
 
 Cuando creamos nuestras bases de datos solemos crear diagramas que nos facilitan la abstracción de como se va a almacenar nuestra información, pero la forma de llevarlo a la realidad en algun gestor de bases de datos, como por ejemplo: **MySQL**, **SQLite**, **PostgreSQL**, **SQL Server**, etc., lo más comun es meternos al lenguaje de script encargado de implementar nuestra idea de la BD y ejecutar dicho script, o incluso ocupar programas más avanzados que nos sirven como interfaz para crearlas de una forma más gráfica y sin la necesidad de profundizar demasiado en el lenguaje, como **Workbench** o **Navicat**.
 
-En Laravel se lleva a otro contexto esta situación, puesto que visto de la forma tradicional si se requieren cambios en la base de datos tenemos que meternos ya sea a otro programa para cambiar el diagrama de la base o a un archivo SQL con una sintaxis usualmente complicada o difícil de leer y ejecutar los cambios para reflejarlos en el proyecto, sin embargo, debido a que con esto no contamos son un control de los cambios (control de versiones) sobre la base de datos, si necesitamos consultar un cambio anterior o de repente la solución previa o inicial era la que se necesita al momento debemos re-escribir todo otra vez, cosa que con la **migraciones** se soluciona instantaneamente.
+En Laravel se lleva a otro contexto esta situación, puesto que visto de la forma tradicional si se requieren cambios en la base de datos tenemos que meternos ya sea a otro programa para cambiar el diagrama de la base o a un archivo SQL con una sintaxis usualmente complicada o difícil de leer y ejecutar los cambios para reflejarlos en el proyecto, sin embargo, con esto no contamos con un control de los cambios (control de versiones) sobre la base de datos, si necesitamos consultar un cambio anterior o de repente la solución previa o inicial era la que se necesita al momento debemos re-escribir todo otra vez, cosa que con la **migraciones** se soluciona instantaneamente.
 
 Las migraciones son archivos que se encuentran el la ruta `database/migrations/` de nuestro proyecto Laravel, por defecto en la instalación de Laravel 5 se encuentran dos migraciones ya creadas, ***create_users_table*** y ***create_password_resets_table***.
 
@@ -18,7 +18,7 @@ php artisan make:migration nombre_migracion --create=nombre_tabla
 
 que nos agrega una plantilla de trabajo básica para empezar a trabajar.
 
-Como ejemplo del curso se tomara este comando:
+Como ejemplo del curso se tomará este comando:
 
 ```
 php artisan make:migration crear_tabla_pasteles --create=pasteles
@@ -30,9 +30,9 @@ Created Migration: 2015_06_23_054801_crear_tabla_pasteles
 ```
 Y nos creará además el siguiente archivo:
 
-![](../images/Screenshot - 230615 - 00:48:22.png)
+![](../images/migracion_pasteles.png)
 
-Ahora bien se puede observar que el archivo como tal no se llama simplemente ***crear_tabla_pasteles*** sino ***2015_06_23_054801_crear_tabla_pasteles***, esto pasa porque Laravel al crear una migración agrega como préfijo la fecha y hora en la que fué creada la migración para poder ordenar qué migración va antes que otra, por lo cual si tu ejecutas este comando, obviamente el nombre de tu archivo será diferente pues la fecha y hora no pueden ser las mismas que la mia al crear este ejemplo. Además las migraciones que vienen por defecto en Laravel también se encuentran con este formato por lo cual podemos observar que para todos estos dos archivos si tienen el mismo nombre exactamente.
+Ahora bien se puede observar que el archivo como tal no se llama simplemente ***crear_tabla_pasteles*** sino ***2015_06_23_054801_crear_tabla_pasteles***, esto pasa porque Laravel al crear una migración agrega como préfijo la fecha y hora en la que fué creada la migración para poder ordenar qué migración va antes que otra, por lo cual si tu ejecutas este comando, obviamente el nombre de tu archivo será diferente pues la fecha y hora no pueden ser las mismas que la mia al crear este ejemplo. Además las migraciones que vienen por defecto en Laravel también se encuentran con este formato por lo cual podemos observar que estos dos archivos si tienen el mismo nombre.
 
 Dentro de la estructura del archivo podemos ver dos funciones, una llamada **up()** y otra llamada **down()**, la primer función es en donde vamos a especificar la estructura de nuestra tabla, inicialmente y gracias al comando se encuentran ya algunas cosas escritas como lo son la clase **Schema** en la cual se llama al método **create**, el cual nos permite crear la tabla en nuestra base de datos, esta recibe dos parámetros, el primero es el nombre que va a recibir la tabla que si no mal recuerdan es el que se le dio en el comando y por lo cual ya se encuentra en su lugar, y el segundo parámetro es una función closure o función anónima que lo que hace es definir las columnas de nuestra tabla, a su vez esta función anónima recibe como parámetro un objeto de tipo **Blueprint** que se agregó dentro del namespace con la palabra **use** en la cabecera del archivo, el objeto `$table` es con el que vamos a trabajar para definir los campos, como se ve en la imagen anterior esto se logra escribiendo `$table->tipo_dato('nombre');`, y esto puede variar dependiendo el tipo de dato que se use y para ello podemos revisar la documentación oficial de Laravel [aquí](http://laravel.com/docs/5.0/schema#adding-columns) para poder ver todos los tipos de campos con los que contamos.
 
@@ -51,7 +51,7 @@ Para correr o iniciar nuestras migraciones usamos el comando:
 ```
 php artisan migrate
 ```
-Con esto si es la primera vez que se ejecuta este comando se creará en nuestra base de datos la tabla **migrations** que es la encargada de llevar el control de que migraciones ya han sido ejecutadas, con el fin de no correr el mismo archivo más de una vez si el comando se usa nuevamente.
+Con esto si es la primera vez que se ejecuta este comando se creará en nuestra base de datos la tabla **migrations** que es la encargada de llevar el control de que migraciones que ya han sido ejecutadas, con el fin de no correr el mismo archivo más de una vez si el comando se usa nuevamente.
 
 Entonces si creamos nuestra migración ***crear_tabla_pasteles*** y usamos el comando ```php artisan migrate``` como resultado en nuestra base de datos se agregará la tabla **pasteles** y en la tabla **migrations** se añadirá el registro de la migración recien ejecutada.
 
@@ -76,13 +76,13 @@ En el dado caso que necesitaramos agregar más campos a la tabla pasteles, podr�
 
 Ahora el archivo resultante quedaría así:
 
-![](../images/Screenshot - 230615 - 01:56:19.png)
+![](../images/agregar_campos_pasteles.png)
 
 Para poder agregar más columnas a las tablas desde Laravel en vez de llamar al método ```create``` llamamos al método ```table``` de la clase ```Schema``` pasandole como primer parámetro a que tabla se va a agregar los campos y como segundo parámetro la función anónima donde definimos que columnas se agregaran.
 
 Y en la función **down** para eliminar columnas que vendría siendo lo opuesto de agregarlas, se llama al método ```table``` y dentro de la función anónima del objeto ```$table``` se usa el método ```dropColumn()``` que recibe como parámetro ya sea el nombre de una sola columna o un arreglo con todas las columnas que se desean eliminar.
 
-Y listo!, con esto podemos tener una idea inicial de como usar las migraciones, lo que para este ejemplo podría continuar sería agregar más columnas a la tabla pasteles y probar los comandos necesarios para poder deshacer los cambios de la primera vez que se corrio la migración con una nueva versión, ya sea sobre el mismo archivo o sobre otro nuevo.
+Y ¡listo!, con esto podemos tener una idea inicial de como usar las migraciones, lo que para este ejemplo podría continuar sería agregar más columnas a la tabla pasteles y probar los comandos necesarios para poder deshacer los cambios de la primera vez que se corrio la migración con una nueva versión, ya sea sobre el mismo archivo o sobre otro nuevo.
 
 ###Beneficios
 
@@ -98,7 +98,7 @@ Y listo!, con esto podemos tener una idea inicial de como usar las migraciones, 
 
 #Seeders
 
-Los Seeders por otra parte son archivos que nos van a permitir poblar nuestra base de datos para no tener que perder el tiempo escribiendo de forma manual todos los datos, un ejemplo sería imaginar llenar 15 tablas con 100 registros cada una y pensar en que entre cada tabla deben existir registros que se relacionan entre sí, eso suena de verdad horrible y tedioso, por lo cual Laravel nos salva con estos archivos Seeders.
+Los Seeders por otra parte son archivos que nos van a permitir poblar nuestra base de datos para no tener que perder el tiempo escribiendo de forma manual todos los datos, un ejemplo, imagina llenar 15 tablas con 100 registros cada una y piensa en que entre cada tabla deben existir registros que se relacionan entre sí, eso suena de verdad horrible y tedioso, por lo cual Laravel nos salva con estos archivos Seeders.
 
 Un Seeder se ubica en la carpeta ```database/seeds/``` de nuestro proyecto de Laravel y para poder crear un nuevo Seeder se usa el comando:
 
@@ -115,15 +115,15 @@ Con esto ya tenemos el archivo pero no es todo lo que necesitamos para poder tra
 
 Al final solo se ocupa el comando ```composer update``` para actualizar las dependencias y descargar **Faker** al proyecto.
 
-Una vez ya teniendo **Faker** iremos a nuestro archivo ***PastelesSeeder*** y dentro podremos observer que se encuentra una funnción llamada ```run()``` que es donde nosotros vamos a usar **Faker** para poblar, ahora bien antes de todo debemos agregar la clase de **Faker** a nuestro Seeder, para esto agregamos al inicio del archivo la linea:
+Una vez ya teniendo **Faker** iremos a nuestro archivo ***PastelesSeeder*** y dentro podremos observer que se encuentra una función llamada ```run()``` que es donde nosotros vamos a usar **Faker** para poblar, ahora bien antes de todo debemos agregar la clase de **Faker** a nuestro Seeder, para esto agregamos al inicio del archivo la linea:
 ```
 use Faker\Factory as Faker;
 ```
 Quedando el archivo de la siguiente forma:
 
-![](../images/Screenshot - 230615 - 02:52:52.png)
+![](../images/pasteles_seeder.png)
 
-Después crearemos una variable llamada ```$faker``` que nos servira para poblar la base de datos, ahora bien usando la clase DB, si bien dentro del ejemplo queremos crear 50 pastelesvamos a crear un for para que ejecute nuestro código de inserción 50 veces y el componente de **Faker** en cada pasada cambiará los valores del registro que se va a agregar, quedando de esta forma:
+Después crearemos una variable llamada ```$faker``` que nos servira para poblar la base de datos, ahora bien usando la clase DB, si bien dentro del ejemplo queremos crear 50 pasteles vamos a crear un for para que ejecute nuestro código de inserción 50 veces y el componente de **Faker** en cada pasada cambiará los valores del registro que se va a agregar, quedando de esta forma:
 
 ```php
 $faker = Faker::create();
@@ -156,7 +156,7 @@ php artisan db:seed
 
 Y con esto queda poblada la tabla ***pasteles*** y lo puedes verificar en tu gestor de base de datos.
 
-Cuando trabajamos con Migraciones y Seeder por primera vez puede parecer un poco más complicado que a lo que estamos acostumbrados pero las ventajas que nos da superan por mucho a la forma convencional, adempas de ser una forma más profesional de trabajar.
+Cuando trabajamos con Migraciones y Seeder por primera vez puede parecer un poco más complicado que a lo que estamos acostumbrados pero las ventajas que nos da superan por mucho a la forma convencional, además de ser una forma más profesional de trabajar.
 
 Unos comandos extras que nos pueden ser utiles son:
 
