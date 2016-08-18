@@ -14,7 +14,7 @@ Podemos validar que los campos de un formulario sean requeridos al agregar el at
 </form>
 ```
 
-El atributo  `reqired` es un atributo booleano.
+El atributo  `required` es un atributo booleano.
 Cuando esta presente, este especifica que un campo debe ser rellenado antes de ser enviado el contenido del formulario.
 
 El atributo `required` trabaja con los siguientes tipos de input:
